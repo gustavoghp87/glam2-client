@@ -12,7 +12,6 @@ import {
     GET_CART_ITEMS_USER,
     REMOVE_CART_ITEM_FROM_DETAIL,
     REMOVE_CART_ITEM_FROM_CART_PAGE,
-    ON_SUCCESS_BUY_USER,
     ADD_ENVIO
 } from './types'
 
@@ -51,7 +50,7 @@ export function auth() {
 }
 
 export function logoutUser() {
-    const request = axios.get(`${USER_SERVER}/logout`)
+    const request = axios.post(`${USER_SERVER}/logout`, {token:document.cookie})
         .then(response => response.data)
     return {
         type: LOGOUT_USER,
@@ -60,7 +59,7 @@ export function logoutUser() {
 }
 
 export function addToCartFromDetail(_id) {
-    const request = axios.get(`${USER_SERVER}/addToCart?productId=${_id}`)
+    const request = axios.post(`${USER_SERVER}/addToCart?productId=${_id}`, {token:document.cookie})
         .then(response => response.data)
     return {
         type: ADD_TO_CART_FROM_DETAIL,
@@ -69,7 +68,7 @@ export function addToCartFromDetail(_id) {
 }
 
 export function addToCartFromCartPage(_id) {
-    const request = axios.get(`${USER_SERVER}/addToCart?productId=${_id}`)
+    const request = axios.post(`${USER_SERVER}/addToCart?productId=${_id}`, {token:document.cookie})
         .then(response => response.data)
     return {
         type: ADD_TO_CART_FROM_CART_PAGE,
@@ -78,7 +77,7 @@ export function addToCartFromCartPage(_id) {
 }
 
 export function addEnvio(money) {                         // mía
-    const request = axios.get(`${USER_SERVER}/addEnvio?money=${money}`)
+    const request = axios.post(`${USER_SERVER}/addEnvio?money=${money}`, {token:document.cookie})
         .then(response => response.data)
     return {
         type: ADD_ENVIO,
@@ -87,7 +86,7 @@ export function addEnvio(money) {                         // mía
 }
 
 export function subtractCartItemFromDetail(_id) {              // mía
-    const request = axios.get(`${USER_SERVER}/subtractOneToCart?productId=${_id}`)
+    const request = axios.post(`${USER_SERVER}/subtractOneToCart?productId=${_id}`, {token:document.cookie})
         .then(response => response.data)
     return {
         type: SUBTRACT_CART_ITEM_FROM_DETAIL,
@@ -97,7 +96,7 @@ export function subtractCartItemFromDetail(_id) {              // mía
 
 
 export function subtractCartItemFromCartPage(id) {
-    const request = axios.get(`${USER_SERVER}/subtractOneToCart?productId=${id}`)
+    const request = axios.post(`${USER_SERVER}/subtractOneToCart?productId=${id}`, {token:document.cookie})
         .then(response => response.data)
     return {
         type: SUBTRACT_CART_ITEM_FROM_CART_PAGE,
@@ -107,7 +106,7 @@ export function subtractCartItemFromCartPage(id) {
 
 
 export function removeCartItemFromDetail(id) {
-    const request = axios.get(`${USER_SERVER}/removeFromCart?_id=${id}`)
+    const request = axios.post(`${USER_SERVER}/removeFromCart?_id=${id}`, {token:document.cookie})
         .then(response => {
             response.data.cart.forEach(item => {
                 response.data.cartDetail.forEach((k, i) => {
@@ -126,7 +125,7 @@ export function removeCartItemFromDetail(id) {
 
 
 export function removeCartItemFromCartPage(id) {
-    const request = axios.get(`${USER_SERVER}/removeFromCart?_id=${id}`)
+    const request = axios.post(`${USER_SERVER}/removeFromCart?_id=${id}`, {token:document.cookie})
         .then(response => {
             response.data.cart.forEach(item => {
                 response.data.cartDetail.forEach((k, i) => {
@@ -158,16 +157,6 @@ export function getCartItems(cartItems, userCart) {
         })
     return {
         type: GET_CART_ITEMS_USER,
-        payload: request
-    }
-}
-
-
-export function onSuccessBuy(data) {
-    const request = axios.post(`${USER_SERVER}/successBuy`, data)
-        .then(response => response.data)
-    return {
-        type: ON_SUCCESS_BUY_USER,
         payload: request
     }
 }

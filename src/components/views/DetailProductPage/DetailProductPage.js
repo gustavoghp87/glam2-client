@@ -58,11 +58,11 @@ function DetailProductPage(props) {
             method: 'POST',
             url: `${PRODUCT_SERVER}/editProduct?_id=${productId}`,
             headers: {'Content-Type': 'application/json'},
-            data: paquete
+            data: paquete,
+            token: document.cookie
         }
 
-        Axios(config)
-        .then(res => {
+        Axios(config).then(res => {
             console.log(res.data)
             if (res.data.edited===false) {alert("Algo falló al intentar editar el producto")}
             window.location.href = `/product/${productId}`
@@ -71,7 +71,7 @@ function DetailProductPage(props) {
 
 
     const deleteProductHandler = (productId) => {
-        Axios(`${PRODUCT_SERVER}/deleteProduct?_id=${productId}`)
+        Axios.post(`${PRODUCT_SERVER}/deleteProduct?_id=${productId}`, {token:document.cookie})
         .then(res => {
             //console.log(res.data)
             if (res.data.remove===false) {alert("Algo falló al intentar eliminar el producto")}

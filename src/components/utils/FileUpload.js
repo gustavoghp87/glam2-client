@@ -9,14 +9,12 @@ function FileUpload(props) {
 
     var [Images, setImages] = useState([])
 
-    const onDrop = (files) => {
-
+    const onDrop = async (files) => {
         let formData = new FormData();
         const config = {
-            header: { 'content-type': 'multipart/form-data' }
+            header: { 'content-type': 'multipart/form-data', 'content-type': 'application/json', 'content-type': 'accept', "Access-Control-Allow-Origin": "*" }
         }
         formData.append("file", files[0])
-        //save the Image we chose inside the Node Server 
         Axios.post(`${PRODUCT_SERVER}/uploadImage`, formData, config)
             .then(response => {
                 if (response.data.success) {
@@ -46,7 +44,7 @@ function FileUpload(props) {
             <Dropzone
                 onDrop={onDrop}
                 multiple={false}
-                maxSize={80000000}   // aumentar en nginx.conf
+                maxSize={800000000}   // aumentar en nginx.conf
             >
                 {({ getRootProps, getInputProps }) => (
                     <div style={{

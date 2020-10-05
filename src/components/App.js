@@ -16,9 +16,7 @@ import SalesPage from './views/SalesPage/SalesPage'
 import PolicyPage from './views/LoginPage/PolicyPage'
 import UsePage from './views/LoginPage/UsePage'
 import ReturnsPage from './views/LoginPage/ReturnsPage'
-
-export const backgroundColor = "#18191a"
-export const bColorNavFooter = "#000000"
+import { ColorPrimary } from './views/NavBar/NavBar'
 
 
 function App() {
@@ -26,7 +24,7 @@ function App() {
   return (
     <Suspense fallback={(<div>Cargando...</div>)}>
       <NavBar />
-      <div style={{backgroundColor:'#18191a', maxWidth:'100%', paddingTop:'75px', margin:'auto', minHeight:'calc(100vh - 80px)'}}>
+      <div style={{backgroundColor:ColorPrimary, maxWidth:'100%', margin:'15px, auto 200px auto', minHeight:'calc(100vh - 80px)'}}>
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null)} />
           <Route exact path="/servicios" component={Auth(ServicesPage, null)} />

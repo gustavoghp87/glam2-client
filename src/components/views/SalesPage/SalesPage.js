@@ -8,10 +8,12 @@ function HistoryPage() {
 
     const [data, setData] = useState({ pagos: [] })
 
-    useEffect(async () => {
-        const result = await axios(`${USER_SERVER}/getSales`)
-        console.log(result.data)
-        setData(result.data)
+    useEffect(() => {
+        ;(async () => {
+            const result = await axios.post(`${USER_SERVER}/getSales`, {token:document.cookie})
+            console.log(result.data)
+            setData(result.data)
+        })()
     }, [])
 
     const fecha = (date) => {
@@ -26,12 +28,12 @@ function HistoryPage() {
         return importe
     }
 
-    const diaDeCobro = (timestamp) => {
-        let suma = timestamp + 1209600000   // restarle 3 horas
-        let diaDeCobro = new Date(suma)
-        diaDeCobro = diaDeCobro.toISOString().slice(0, 10) + " a las " + diaDeCobro.toISOString().slice(11, 16) + "hs"
-        return diaDeCobro
-    }
+    // const diaDeCobro = (timestamp) => {
+    //     let suma = timestamp + 1209600000   // restarle 3 horas
+    //     let diaDeCobro = new Date(suma)
+    //     diaDeCobro = diaDeCobro.toISOString().slice(0, 10) + " a las " + diaDeCobro.toISOString().slice(11, 16) + "hs"
+    //     return diaDeCobro
+    // }
 
     let estiloAnch = {width:'75%', margin:'2rem auto'}
     try {
@@ -56,13 +58,12 @@ function HistoryPage() {
                             <Card.Text style={{margin:'2.5% 7% 3% 7%', fontSize:'1.1rem'}}>
                                 <span> Fecha: {fecha(item.createdAt)} {item.product[0].dateOfPurchase} <br/> </span>
                                 <span> Vendidos: {
-                                    item.product.map(article => {
-                                        return (
-                                            <span key={article.id}> <br/>
-                                                &nbsp;&nbsp;-{article.name} | id: {article.id} | cantidad: {article.quantity} | precio: ${article.price} | <span style={{fontWeight:'600'}}> Total: ${importe(article.quantity, article.price)} </span>
-                                            </span>
+                                    item.product.map((article, index) => (
+                                        <span key={index}> <br/>
+                                            &nbsp;&nbsp;-{article.name} | id: {article.id} | cantidad: {article.quantity} | precio: ${article.price} | <span style={{fontWeight:'600'}}> Total: ${importe(article.quantity, article.price)} </span>
+                                        </span>
                                         )
-                                    })
+                                    )
                                 } <br/> <span style={{fontWeight:'600'}}> Total por venta: ${item.mpJSON.transaction_amount} - Neto a recibir: ${item.mpJSON.transaction_details.net_received_amount} </span> <br/> </span>
                                 <span> Usuario: {item.user.email} <br/> </span>
                                 <span> Método de pago: {item.mpJSON.payment_method_id} - {item.mpJSON.payment_type_id} <br/> </span>

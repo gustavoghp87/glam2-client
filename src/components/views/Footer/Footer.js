@@ -1,7 +1,6 @@
 import React from 'react'
 import { SketchOutlined, InstagramOutlined, FacebookOutlined, WhatsAppOutlined } from '@ant-design/icons'
-import { backgroundColor, bColorNavFooter } from '../../App'
-
+import { ColorSecundary, ColorPrimary } from '../NavBar/NavBar'
 
 function Footer() {
 
@@ -12,7 +11,7 @@ function Footer() {
             let estiloIcons = {fontSize:38}
 
             return (
-                <div className="main-footer" style={{fontSize:'1.5rem', paddingTop:'20px', paddingBottom:'20px', backgroundColor:bColorNavFooter, height:'250px'}}>
+                <div className="main-footer" style={{fontSize:'1.5rem', paddingTop:'20px', paddingBottom:'20px', backgroundColor:ColorSecundary, height:'250px'}}>
                     <p style={{color:'violet', textAlign:'center', marginTop:'20px'}}>Senillosa 226 - CABALLITO</p>
                     <p style={{color:'violet', textAlign:'center'}}>(11) 4901-3467 &nbsp; | &nbsp; 11-6957-5866</p>
                     <div style={{display:'flex', margin:'auto', textAlign:'center', alignItems:'center', justifyContent:'center'}}>
@@ -35,7 +34,7 @@ function Footer() {
             let estiloIcons = {fontSize:35};
 
             return (
-                <div className="main-footer" style={{fontSize:'1rem', paddingTop:'20px', paddingBottom:'20px', backgroundColor:bColorNavFooter, height:'280px'}}>
+                <div className="main-footer" style={{fontSize:'1rem', paddingTop:'20px', paddingBottom:'20px', backgroundColor:ColorSecundary, height:'280px'}}>
                     <div style={{display:'block', margin:'auto', textAlign:'center'}}>
                         <p style={{color:'violet', textAlign:'center', marginTop:'20px'}}>Senillosa 226 - CABALLITO</p>
                         <p style={{color:'violet', textAlign:'center'}}>(11) 4901-3467 &nbsp; | &nbsp; 11-6957-5866</p>
@@ -60,7 +59,7 @@ function Footer() {
     
     return (
         <>
-            <p style={{textAlign:'center', backgroundColor, marginBottom:'0', paddingBottom:'10px'}}
+            <p style={{textAlign:'center', backgroundColor:ColorPrimary, marginBottom:'0', paddingBottom:'10px'}}
                 >Ver <a href={'/condiciones-de-uso'}>Condiciones de Uso</a>
             </p>
             

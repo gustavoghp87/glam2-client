@@ -76,17 +76,7 @@ export default function (state = {}, action) {
                     cart: action.payload.cart
                 }
             }
-        case types.ON_SUCCESS_BUY_USER:
-            return {
-                ...state,
-                userData: {
-                    ...state.userData,
-                    cart: action.payload.cart
-                },
-                cartDetail: action.payload.cartDetail
-            }
-
         default:
-            return state;
+            return state
     }
 }

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Descriptions, Form, Input, Select, Upload, Col, Row, Checkbox } from 'antd'
+import { Button, Descriptions, Form, Input, Select, Col, Row, Checkbox } from 'antd'
 //import { UploadOutlined } from '@ant-design/icons'
 import Button2 from 'react-bootstrap/Button'
 import { FormControl, InputGroup } from 'react-bootstrap'
 import { useSelector } from "react-redux"
-import './product.css'
 import { IMAGES_SERVER } from '../../../../hoc/Config'
 
 const { Option } = Select;
@@ -16,8 +15,6 @@ function ProductInfo(props) {
     const user = useSelector(state => state.user)
 
     var cantidad = "0"
-    let isAdmin = {display:'none'}
-    let isNotAdmin = {}
     try {
         if (user.userData) {
             user.userData.cart.forEach(element => {
@@ -25,19 +22,8 @@ function ProductInfo(props) {
                     cantidad = element.quantity
                 }
             })
-            document.getElementById('logueado1').style.display = 'flex'
-            document.getElementById('logueado2').style.display = 'block'
-            document.getElementById('logueado3').style.display = 'block'
-            document.getElementById('logueado4').style.display = 'block'
-            document.getElementById('logueado5').style.display = 'flex'
-
-            if (user.userData.isAdmin) {
-                isAdmin = {textAlign:'center'}
-                isNotAdmin = {display:'none'}
-            }
         }
     } catch(e) {}
-
 
     const [Product, setProduct] = useState({})
     const [id01, setId01] = useState({display:'none'})
@@ -95,66 +81,73 @@ function ProductInfo(props) {
 
     return (
 
-        <div>
-            <Descriptions title="Información del Producto" style={isNotAdmin}>
-                <Descriptions.Item label="Precio" style={{fontWeight:'600', paddingBottom:'8px', paddingLeft:'15px'}}> ${Product.price} </Descriptions.Item>
-                <Descriptions.Item label="Disponible" style={{fontWeight:'600', paddingBottom:'8px', paddingLeft:'15px'}}> Sí </Descriptions.Item>
-                <Descriptions.Item label="Envíos" style={{fontWeight:'600', paddingBottom:'8px', paddingLeft:'15px'}}> Sí </Descriptions.Item>
-                <Descriptions.Item label="Descripción" style={{backgroundColor:'lightgray', paddingLeft:'15px'}}> {Product.description} </Descriptions.Item>
-            </Descriptions>
-
-            <Descriptions title="Información del Producto" style={isAdmin}>
-                <Descriptions.Item label="Precio" style={{fontWeight:'600'}}> ${Product.price} </Descriptions.Item>
-                <Descriptions.Item label="Vendidos"> {Product.sold} </Descriptions.Item>
-                <Descriptions.Item label="Vistos"> {Product.views} </Descriptions.Item>
-                <Descriptions.Item label="Descripción"> {Product.description} </Descriptions.Item>
-            </Descriptions>
+        <div style={{marginRight:'5%'}}>
+            {!user || !user.userData || !user.userData.isAdmin &&
+                <Descriptions title="Información del Producto" style={{border:'1px solid lightgray', textAlign:'center'}}>
+                    <Descriptions.Item label="Precio" style={{fontWeight:'600', border:'1px solid lightgray', padding:'8px 0 10px 15px'}}> ${Product.price} </Descriptions.Item>
+                    <Descriptions.Item label="Disponible" style={{border:'1px solid lightgray', padding:'8px 0 10px 15px'}}> Consultar </Descriptions.Item>
+                    <Descriptions.Item label="Envíos" style={{border:'1px solid lightgray', padding:'8px 0 10px 15px'}}> Consultar </Descriptions.Item>
+                    <Descriptions.Item label="Descripción" style={{backgroundColor:'lightgray', padding:'8px 0 10px 15px'}}> {Product.description} </Descriptions.Item>
+                </Descriptions>
+            }
+            
+            {user && user.userData && user.userData.isAdmin &&
+                <Descriptions title="Información del Producto" style={{textAlign:'center'}}>
+                    <Descriptions.Item label="Precio" style={{fontWeight:'600', border:'1px solid lightgray', padding:'8px 0 10px 15px'}}> ${Product.price} </Descriptions.Item>
+                    <Descriptions.Item label="Vendidos" style={{border:'1px solid lightgray', padding:'8px 0 10px 15px'}}> {Product.sold} </Descriptions.Item>
+                    <Descriptions.Item label="Vistos" style={{border:'1px solid lightgray', padding:'8px 0 10px 15px'}}> {Product.views} </Descriptions.Item>
+                    <Descriptions.Item label="Descripción" style={{backgroundColor:'lightgray', padding:'8px 0 10px 15px'}}> {Product.description} </Descriptions.Item>
+                </Descriptions>
+            }
+            
             <span style={{fontWeiht:'600'}}> &nbsp; Grupo:</span> {clasif[Product.types]}
             
-
             <br />
             <br />
             
-            <div style={{display:'none', justifyContent: 'center'}} id="logueado1">
-                <Button size="large" shape="round" type="danger" onClick={
-                    () => { props.addToCart(Product._id) }}> Agregar al Carrito
-                </Button>
-            </div>
+            {user && user.userData &&
+            <>
+                <div style={{justifyContent:'center'}}>
+                    <Button size="large" shape="round" type="danger" onClick={
+                        () => { props.addToCart(Product._id) }}> Agregar al Carrito
+                    </Button>
+                </div>
 
-            <div style={{marginBottom:'20px'}}></div>
+                <div style={{marginBottom:'20px'}}></div>
 
-            <h3 style={{display:'none', textAlign:'center'}} id="logueado2"> Cantidad en el carrito: {cantidad} </h3>
-            <div style={{marginBottom:'20px'}}></div>
+                <h3 style={{textAlign:'center'}}> Cantidad en el carrito: {cantidad} </h3>
+                <div style={{marginBottom:'20px'}}></div>
 
 
-            <div style={{display:'none', textAlign:'center'}} id="logueado3">
-                <Button type="danger" ghost size="medium" shape="round" onClick={ 
-                    () => { props.addToCart(Product._id) }}> + Sumar 1 
-                </Button>
-            </div>
+                <div style={{textAlign:'center'}}>
+                    <Button className="d-inline-block" type="danger" ghost size="medium" shape="round" onClick={ 
+                        () => { props.addToCart(Product._id) }}> + Sumar 1 
+                    </Button>
+                    <Button type="danger" ghost size="medium" shape="round" onClick={
+                        () => { props.subtractCartItem(Product._id) }}> - Restar 1 
+                    </Button>
+                </div>
 
-            <div style={{marginBottom:'10px'}}></div>
-            <div style={{display:'none', textAlign:'center'}} id="logueado4">
-                <Button type="danger" ghost size="medium" shape="round" onClick={
-                    () => { props.subtractCartItem(Product._id) }}> - Restar 1 
-                </Button>
-            </div>
+                <div style={{marginBottom:'25px'}}></div>
 
-            <div style={{marginBottom:'25px'}}></div>
+                <div style={{textAlign:'center'}}>
+                    <Button2 variant="dark" style={{borderRadius:'20px'}} onClick={
+                        () => { props.removeFromCart(Product._id) }}> Quitar del Carrito
+                    </Button2>
+                </div>
+            </>
+            }
+            
 
-            <div style={{display:'none', justifyContent:'center'}} id="logueado5">
-                <Button2 variant="dark" style={{borderRadius:'20px'}} onClick={
-                    () => { props.removeFromCart(Product._id) }}> Quitar del Carrito
-                </Button2>
-            </div>
 
-            <div style={isAdmin}>
-                <br/>
-                <Button size="medium" shape="round" type="danger" onClick={() => {mostrarEdit()}} style={{display:'inline'}}>&nbsp;&nbsp;Editar&nbsp;&nbsp;</Button>
-                &nbsp; &nbsp; &nbsp; &nbsp;
-                <Button size="medium" shape="round" type="danger" onClick={() => {mostrar()}} style={{display:'inline'}}>Eliminar</Button>
-
-            </div>
+            {user && user.userData && user.userData.isAdmin &&
+                <div style={{textAlign:'center'}}>
+                    <br/>
+                    <Button size="medium" shape="round" type="danger" onClick={() => {mostrarEdit()}} style={{display:'inline'}}>&nbsp;&nbsp;Editar&nbsp;&nbsp;</Button>
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    <Button size="medium" shape="round" type="danger" onClick={() => {mostrar()}} style={{display:'inline'}}>Eliminar</Button>        
+                </div>
+            }
             
             <div style={{marginBottom:'30px'}}></div>
 
@@ -163,8 +156,8 @@ function ProductInfo(props) {
 
             {/* //   MODAL DELETE */}
 
-            <div style={id01} className={"modal"}>
-                <form className={"modal-content"} action={"/productos"}>
+            <div style={id01} className="modal">
+                <form className="modal-content" action={"/productos"}>
                     <div className={"container"}>
                         <h1> ¿ELIMINAR PUBLICACIÓN? </h1>
                         <h3> {Product.title} </h3>
@@ -236,7 +229,7 @@ function ProductInfo(props) {
                                     >
                                     <Select placeholder="Clasificación" id="editClasif" onChange={(value) => {clasi(value)}}>
                                         {Clasif.map((item, index) => (
-                                            <Option value={index}> {item} </Option>
+                                            <Option value={index} key={index}> {item} </Option>
                                         ))}
                                     </Select>
                                 </Form.Item>
@@ -251,7 +244,7 @@ function ProductInfo(props) {
                             label="Imágenes (orden y eliminar)"
                             rules={[ {required:true, message:'Faltan las imágenes!' } ]}>
                             {Product && Product.images && Product.images.map((imagen, index) => (
-                                <div style={{display:'inline'}}>
+                                <div style={{display:'inline'}} key={index}>
                                     <h3>Esto no funciona</h3>
 
                                     <Input style={{maxWidth:'50px'}} type="number" as="number" aria-label="With textarea" defaultValue={index+1} />

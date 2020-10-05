@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap'
 import { Row, Col } from 'antd'
 import { Form } from 'react-bootstrap'
 import { IMAGES_SERVER } from '../../../../hoc/Config'
+import { ColorSecundary } from '../../NavBar/NavBar'
 
 
 function UserCardBlock(props) {
@@ -23,7 +24,7 @@ function UserCardBlock(props) {
             return (
                 <tr key={product._id}>
                     
-                    <td style={{textAlign:'center'}}>
+                    <td style={{textAlign:'center', border:'1px solid lightgray', padding:'15px 30px'}}>
                         <a href={`/product/${product._id}`}>
                             <h6 style={{fontWeight:'600', fontSize:'0.9rem', display:'block'}}> {product.title} </h6>
                             <img style={{width:'70px'}} alt="product" src={renderCartImage(product.images)} />
@@ -31,21 +32,21 @@ function UserCardBlock(props) {
                         </a>
                     </td>
                     
-                    <td style={{textAlign:'center'}}> {product.quantity} unidad/es</td>
-                    <td style={{textAlign:'center'}}>${product.price} </td>
-                    <td style={{textAlign:'center'}}>${product.price*product.quantity} </td>
+                    <td style={{textAlign:'center', border:'1px solid lightgray', padding:'15px 30px'}}> {product.quantity} unidad/es</td>
+                    <td style={{textAlign:'center', border:'1px solid lightgray', padding:'15px 30px'}}>${product.price} </td>
+                    <td style={{textAlign:'center', border:'1px solid lightgray', padding:'15px 30px'}}>${product.price*product.quantity} </td>
 
-                    <td style={{textAlign:'center'}}>
+                    <td style={{textAlign:'center', border:'1px solid lightgray', padding:'15px 30px'}}>
                         <Button variant="dark" size="sm" style={ocultarEnvios} onClick={ 
                             () => props.addItem(product._id) }> + 1 </Button>
                     </td>
                     
-                    <td style={{ textAlign:'center' }}>
+                    <td style={{ textAlign:'center', border:'1px solid lightgray', padding:'15px 30px' }}>
                         <Button variant="dark" size="sm" style={ocultarEnvios} onClick={ 
                             () => props.subtractItem(product._id) }> - 1 </Button>
                     </td>
 
-                    <td style={{textAlign:'center'}}>
+                    <td style={{textAlign:'center', border:'1px solid lightgray', padding:'15px 30px'}}>
                         <Button variant="danger" size="md" style={{borderRadius:'10px'}} onClick={
                             () => props.removeItem(product._id) }> Quitar </Button>
                     </td>
@@ -115,7 +116,7 @@ function UserCardBlock(props) {
     }
 
     
-    var estiloTabla1 = {}
+    var estiloTabla1 = {textAlign:'center', margin:'50px auto'}
     var estiloTabla2 = {display:'none'}
     try {
       if (window.screen.width<=767) {
@@ -134,14 +135,14 @@ function UserCardBlock(props) {
 
             <table style={estiloTabla1}>
                 <thead>
-                    <tr>
-                        <th style={{textAlign:'center'}}> Producto </th>
-                        <th style={{textAlign:'center'}}> Cantidad </th>
-                        <th style={{textAlign:'center'}}> Precio </th>
-                        <th style={{textAlign:'center'}}> Importe Total </th>
-                        <th style={{textAlign:'center'}}> Sumar 1 </th>
-                        <th style={{textAlign:'center'}}> Restar 1 </th>
-                        <th style={{textAlign:'center'}}> Quitar del Carrito </th>
+                    <tr style={{backgroundColor:ColorSecundary}}>
+                        <th style={{textAlign:'center', border:'1px solid lightgray', padding:'10px'}}> Producto </th>
+                        <th style={{textAlign:'center', border:'1px solid lightgray', padding:'10px'}}> Cantidad </th>
+                        <th style={{textAlign:'center', border:'1px solid lightgray', padding:'10px'}}> Precio </th>
+                        <th style={{textAlign:'center', border:'1px solid lightgray', padding:'10px'}}> Importe Total </th>
+                        <th style={{textAlign:'center', border:'1px solid lightgray', padding:'10px'}}> Sumar 1 </th>
+                        <th style={{textAlign:'center', border:'1px solid lightgray', padding:'10px'}}> Restar 1 </th>
+                        <th style={{textAlign:'center', border:'1px solid lightgray', padding:'10px'}}> Quitar del Carrito </th>
                     </tr>
                 </thead>
 

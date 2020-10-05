@@ -10,8 +10,8 @@ import SearchFeature from './Sections/SearchFeature'
 import { Button } from 'react-bootstrap'
 import { PRODUCT_SERVER } from '../../../hoc/Config'
 
-const { Meta } = Card
 
+const { Meta } = Card
 
 function LandingPage() {
 

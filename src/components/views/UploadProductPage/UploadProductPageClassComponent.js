@@ -59,7 +59,8 @@ export class UploadProductPage extends Component {
             description: this.state.description,
             images: this.state.images,
             types: this.state.types,
-            price: this.state.price
+            price: this.state.price,
+            token: document.cookie
         }
 
         axios.post(`${PRODUCT_SERVER}/uploadProduct`, variables)

@@ -5,14 +5,14 @@ import Axios from 'axios'
 import clasif from '../../utils/Clasif.json'
 import { PRODUCT_SERVER} from '../../../hoc/Config'
 
-const { Title } = Typography;
-const { TextArea } = Input;
 
-const Types = [];
+const { Title } = Typography
+const { TextArea } = Input
+
+const Types = []
 for (let i in clasif) {
     Types.push({key: i, value:clasif[i]})
 }
-
 
 function UploadProductPage(props) {
 
@@ -46,7 +46,6 @@ function UploadProductPage(props) {
     const onSubmit = (event) => {
         event.preventDefault();
 
-
         if (!TitleValue || !DescriptionValue || !PriceValue ||
             !TypeValue || !Images) {
             return alert('Hay algún campo incompleto')
@@ -59,13 +58,14 @@ function UploadProductPage(props) {
             price: PriceValue,
             images: Images,
             types: TypeValue,
+            token: document.cookie
         }
 
         Axios.post(`${PRODUCT_SERVER}/uploadProduct`, variables)
             .then(response => {
                 if (response.data.success) {
                     alert('Producto subido con éxito')
-                    props.history.push('/')
+                    props.history.push('/productos')
                 } else {
                     alert('Falló carga de producto')
                 }

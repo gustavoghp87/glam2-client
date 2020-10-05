@@ -1,11 +1,10 @@
 import React from 'react'
 import { Menu, Badge } from 'antd'
-import axios from 'axios'
-import { USER_SERVER } from '../../../../hoc/Config'
 import { withRouter } from 'react-router-dom'
 import { useSelector } from "react-redux"
 import { ShoppingCartOutlined } from '@ant-design/icons'
 import { UploadOutlined } from '@ant-design/icons'
+import { logoutUser } from '../../../../_actions/user_actions'
 
 
 function RightMenu(props) {
@@ -26,13 +25,8 @@ function RightMenu(props) {
   reCarrito()
 
   const logoutHandler = () => {
-    axios.get(`${USER_SERVER}/logout`).then(response => {
-      if (response.status === 200) {
-        props.history.push("/login")
-      } else {
-        alert('Falló la salida')
-      }
-    })
+    logoutUser()
+    window.location.href = '/login'
   }
 
   const renderEmail = () => {

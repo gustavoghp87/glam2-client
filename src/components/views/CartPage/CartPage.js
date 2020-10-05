@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getCartItems, removeCartItemFromCartPage, addToCartFromCartPage, subtractCartItemFromCartPage, addEnvio} from '../../../_actions/user_actions'
+import { getCartItems, removeCartItemFromCartPage, addToCartFromCartPage, subtractCartItemFromCartPage, addEnvio } from '../../../_actions/user_actions'
 import UserCardBlock from './Sections/UserCardBlock'
 import { Result, Empty } from 'antd'
 import { IMAGES_SERVER, USER_SERVER } from '../../../hoc/Config'
@@ -12,7 +12,6 @@ function CartPage(props) {
     const [Total, setTotal] = useState(0)
     const [ShowTotal, setShowTotal] = useState(false)
     const [ShowSuccess, setShowSuccess] = useState(false)
-    const [numCarrito, setNumCarrito] = useState(0)
     const user = useSelector(state => state.user)
 
     useEffect(() => {
@@ -41,7 +40,6 @@ function CartPage(props) {
             cartDetail.forEach( element => {
                 numCarrito += element.quantity;    // sumar por ítem: user.userData.cart.length  
             })
-            setNumCarrito(numCarrito)
         } catch(e) {}
         return numCarrito
     }
@@ -171,7 +169,7 @@ function CartPage(props) {
         const correo = user.userData.email;
         
         return (
-            <div style={{width:'85%', marginLeft:'8%', marginRight:'10%', marginBottom:'0', minHeight:'800px'}}>
+            <div style={{width:'85%', margin:'20px 10% 0 8%', minHeight:'800px', textAlign:'center'}}>
                 
                 <h1 style={{marginTop:'20px', marginBottom:'0px'}}> Mi Carrito </h1>
                 <div style={estiloCorreo}>({correo})</div>
