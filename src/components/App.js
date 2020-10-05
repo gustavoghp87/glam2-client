@@ -24,7 +24,7 @@ function App() {
   return (
     <Suspense fallback={(<div>Cargando...</div>)}>
       <NavBar />
-      <div style={{backgroundColor:ColorPrimary, maxWidth:'100%', margin:'15px, auto 200px auto', minHeight:'calc(100vh - 80px)'}}>
+      <div style={{backgroundColor:ColorPrimary, maxWidth:'90%', margin:'15px, auto 200px auto', minHeight:'calc(100vh - 80px)'}}>
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null)} />
           <Route exact path="/servicios" component={Auth(ServicesPage, null)} />
