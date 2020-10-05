@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="shortcut icon" href="%PUBLIC_URL%/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <!--
+      manifest.json provides metadata used when your web app is installed on a
+      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
+    -->
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!--
+      Notice the use of %PUBLIC_URL% in the tags above.
+      It will be replaced with the URL of the `public` folder during the build.
+      Only files inside the `public` folder can be referenced from the HTML.
+      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
+      work correctly both with client-side routing and a non-root public URL.
+      Learn how to configure a non-root public URL by running `npm run build`.
+    -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous"/>
+    <title>GlamStudio.com.ar</title>
+    <style>
+      #whatsapp {
+        position: fixed;
+        right: 20px;
+        bottom: 30px;
+        display: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    <noscript>Tu navegador tiene deshabilitado javascript.</noscript>
+
+    <div>
+      <div style="width:80px; overflow:hidden; color:#fff; text-align:center; padding:0; margin:0; position:fixed; right:0; bottom:1.5%; z-index:25;">
+          <a class="demo-button" href="https://api.whatsapp.com/send?phone=5491169575866&amp;source=&amp;data=" target="_blank" rel="noopener noreferrer" data-animate="fadeInRight" data-animated="true">
+            <img style="width:50px; margin-bottom:5px;" src="https://glamstudio.com.ar/imgs/whatsapp.png" />
+            <h6 style="text-align:center;" id="consultas"> Consultas y turnos </h6>
+          </a>
+      </div>
+    </div>
+
+
+    <script>
+      if (window.screen.width<=767)
+        document.getElementById('consultas').style.display = 'none';
+    </script>
+    
+    
+    <div id="root" style="margin:auto;"></div>
+
+
+  </body>
+</html>
