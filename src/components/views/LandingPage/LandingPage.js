@@ -24,28 +24,28 @@ function LandingPage() {
 
             <Carousel>
                 <Carousel.Item style={carrusel}>
-                    <img className="d-block w-100" src="/imgs/glamprimera.jpeg" alt="First slide" style={img} />
+                    <img className="d-block w-100" src="/imgs/glamprimera.png" alt="First slide" style={img} />
                     {/* <Carousel.Caption>
                         <h3></h3>
                         <p></p>
                     </Carousel.Caption> */}
                 </Carousel.Item>
                 <Carousel.Item style={carrusel}>
-                    <img className="d-block w-100" src="/imgs/pic1.jpeg" alt="Second slide" style={img} />
+                    <img className="d-block w-100" src="/imgs/pic1.png" alt="Second slide" style={img} />
                     {/* <Carousel.Caption>
                         <h3></h3>
                         <p></p>
                     </Carousel.Caption> */}
                 </Carousel.Item>
                 <Carousel.Item style={carrusel}>
-                    <img className="d-block w-100" src="/imgs/pic2.jpeg" alt="Third slide" style={img} />
+                    <img className="d-block w-100" src="/imgs/pic2.png" alt="Third slide" style={img} />
                     {/* <Carousel.Caption>
                         <h3></h3>
                         <p></p>
                     </Carousel.Caption> */}
                 </Carousel.Item>
                 <Carousel.Item style={carrusel}>
-                    <img className="d-block w-100" src="/imgs/pic3.jpeg" alt="Forth slide" style={img} />
+                    <img className="d-block w-100" src="/imgs/pic3.png" alt="Forth slide" style={img} />
                     {/* <Carousel.Caption>
                         <h3></h3>
                         <p></p>
