@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Drawer, Button, Menu, Badge } from 'antd'
 import './Sections/Navbar.css'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -17,15 +17,33 @@ export const ColorFont = darkMode ? "#ffffff" : '#000000'
 function NavBar() {
 
   const user = useSelector(state => state.user)
-  const dispatch = useDispatch()
-  const { ColorPrimary, ColorSecundary, ColorFont } = useSelector(state => state.mode)
   const mode = useSelector(state => state.mode)
+  const dispatch = useDispatch()
+
+  const [DarkMode, setDarkMode] = useState(false)
+  const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
+  const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
+  const [ColorFont, setColorFont] = useState(mode.ColorFont)
+
   const estiloBarra = {backgroundColor: ColorPrimary}
   const estiloMenuContainer = {backgroundColor: ColorPrimary}
   const [visible, setVisible] = useState(false)
   const showDrawer = () => { setVisible(true) }
   const onClose = () => { setVisible(false) }
-  
+
+  useEffect(() => {
+    let local = localStorage.getItem("mode")
+    local='true' ? local=true : local=false
+    console.log("local", local)
+
+    setColorPrimary(mode.ColorPrimary)
+    setColorSecundary(mode.ColorSecundary)
+    setColorFont(mode.ColorFont)
+    setDarkMode(mode.darkMode)
+  }, [mode, DarkMode])
+  console.log(DarkMode, mode.darkMode, localStorage.getItem("mode"))
+
+
 
   const renderEmailFloat = () => {
     try {
@@ -94,8 +112,8 @@ function NavBar() {
           </Menu.Item>
 
           <Menu.Item>
-            <a href="/history" style={estiloHistory1}>Historial de Compras</a>
-            <a href="/history" style={estiloHistory2}>Compras</a>
+            <Link to="/history" style={estiloHistory1}>Historial de Compras</Link>
+            <Link to="/history" style={estiloHistory2}>Compras</Link>
           </Menu.Item>
   
           <Menu.Item id="cart">
@@ -103,9 +121,9 @@ function NavBar() {
   
               <span style={{fontWeight:'600'}}> Mi Carrito &nbsp; </span>
 
-              <a href="/user/cart" style={badge}>
+              <Link to="/user/cart" style={badge}>
                 <ShoppingCartOutlined style={{fontSize:30}}/>
-              </a>
+              </Link>
             </Badge>
           
           </Menu.Item>
@@ -120,8 +138,8 @@ function NavBar() {
         <Menu mode={"horizontal"}>
   
           <Menu.Item>
-            <a href="/history" style={estiloHistory1}>Historial de Compras</a>
-            <a href="/history" style={estiloHistory2}>Compras</a>
+            <Link to="/history" style={estiloHistory1}>Historial de Compras</Link>
+            <Link to="/history" style={estiloHistory2}>Compras</Link>
           </Menu.Item>
   
           <Menu.Item id="cart">
@@ -129,9 +147,9 @@ function NavBar() {
   
               <span style={{fontWeight:'600'}}> Mi Carrito &nbsp; </span>
 
-              <a href="/user/cart" style={badge}>
+              <Link to="/user/cart" style={badge}>
                 <ShoppingCartOutlined style={{fontSize:30}}/>
-              </a>
+              </Link>
             </Badge>
 
           </Menu.Item>
@@ -145,10 +163,10 @@ function NavBar() {
       return (
         <Menu mode={"horizontal"}>
           <Menu.Item>
-            <a style={{color:ColorFont}} href="/login"> Iniciar Sesión </a>
+            <Link style={{color:ColorFont}} to="/login"> Iniciar Sesión </Link>
           </Menu.Item>
           <Menu.Item>
-            <a style={{color:ColorFont}} href="/registro">Registrarse</a>
+            <Link style={{color:ColorFont}} to="/registro">Registrarse</Link>
           </Menu.Item>
         </Menu>
       )
@@ -163,19 +181,19 @@ function NavBar() {
       return (
         <Menu mode={"inline"}>
           <Menu.Item>
-            <a href="/ventas" style={estiloVentas}> Ventas </a>
+            <Link to="/ventas" style={estiloVentas}> Ventas </Link>
           </Menu.Item>
           <hr />
   
           <Menu.Item>
-            <a href="/product/upload" style={subir1}> <UploadOutlined style={{fontSize:25}}/>Subir</a>
-            <a href="/product/upload" style={subir2}> <UploadOutlined style={{fontSize:25}}/></a>
+            <Link to="/product/upload" style={subir1}> <UploadOutlined style={{fontSize:25}}/>Subir</Link>
+            <Link to="/product/upload" style={subir2}> <UploadOutlined style={{fontSize:25}}/></Link>
           </Menu.Item>
           <hr />
   
           <Menu.Item>
-            <a href="/history" style={estiloHistory1} id="compras1">Historial de Compras</a>
-            <a href="/history" style={estiloHistory2} id="compras2">Compras</a>
+            <Link to="/history" style={estiloHistory1} id="compras1">Historial de Compras</Link>
+            <Link to="/history" style={estiloHistory2} id="compras2">Compras</Link>
           </Menu.Item>
           <hr />
   
@@ -184,9 +202,9 @@ function NavBar() {
 
               <span style={{fontWeight:'600'}}> Mi Carrito &nbsp; </span>
 
-              <a href="/user/cart" style={badge}>
+              <Link to="/user/cart" style={badge}>
                 <ShoppingCartOutlined style={{fontSize:30}}/>
-              </a>
+              </Link>
             </Badge>
   
           </Menu.Item>
@@ -208,8 +226,8 @@ function NavBar() {
         <Menu mode={"inline"}>
   
           <Menu.Item>
-            <a href="/history" style={estiloHistory1} id="compras1">Historial de Compras</a>
-            <a href="/history" style={estiloHistory2} id="compras2">Compras</a>
+            <Link to="/history" style={estiloHistory1} id="compras1">Historial de Compras</Link>
+            <Link to="/history" style={estiloHistory2} id="compras2">Compras</Link>
           </Menu.Item>
           <hr />
   
@@ -218,9 +236,9 @@ function NavBar() {
 
               <span style={{fontWeight:'600'}}> Mi Carrito &nbsp; </span>
   
-              <a href="/user/cart" style={badge}>
+              <Link to="/user/cart" style={badge}>
                 <ShoppingCartOutlined style={{fontSize:30}}/>
-              </a>
+              </Link>
             </Badge>
 
           </Menu.Item>
@@ -241,10 +259,10 @@ function NavBar() {
       return (
         <Menu mode={"inline"}>
           <Menu.Item>
-            <a style={{color:ColorFont}} href="/login">Iniciar Sesión</a>
+            <Link style={{color:ColorFont}} to="/login">Iniciar Sesión</Link>
           </Menu.Item>
           <Menu.Item>
-            <a style={{color:ColorFont}} href="/registro">Registrarse</a>
+            <Link style={{color:ColorFont}} to="/registro">Registrarse</Link>
           </Menu.Item>
         </Menu>
       )
@@ -261,7 +279,7 @@ function NavBar() {
         <nav className="menu" style={{ width:'100%'}, estiloBarra} id="barra">
           
           <div className="menu__logo">
-            <a href="/" style={{color:'violet'}}> GlamStudio </a>
+            <Link to="/" style={{color:'violet'}}> GlamStudio </Link>
           </div>
           
           <div className="menu__container" style={{paddingTop:'5px'}}>
@@ -269,29 +287,29 @@ function NavBar() {
             <div className="menu_left">
               <Menu mode={"horizontal"}>
                 <Menu.Item>
-                  <a href="/servicios"> <span style={{fontWeight:'600', color:ColorFont}}>Servicios</span> </a>
+                  <Link to="/servicios"> <span style={{fontWeight:'600', color:ColorFont}}>Servicios</span> </Link>
                 </Menu.Item>
 
                 <Menu.Item>
-                  <a href="/productos"> <span style={{fontWeight:'600', color:ColorFont}}>Productos</span> </a>
+                  <Link to="/productos"> <span style={{fontWeight:'600', color:ColorFont}}>Productos</span> </Link>
                 </Menu.Item>
 
                 <Menu.SubMenu title={<span>Menú</span>} style={{display:'none'}}>
                   <Menu.ItemGroup title="Shopping" style={{color:'#40a9ff', fontWeight:800}}>
-                    <a href="/servicios">
+                    <Link to="/servicios">
                       <Menu.Item style={{paddingLeft:'18%', paddingTop:'5%', paddingBottom:'8%', fontWeight:400, color:ColorFont}}>Servicios</Menu.Item> 
-                    </a>
-                    <a href="/productos">
+                    </Link>
+                    <Link to="/productos">
                       <Menu.Item style={{paddingLeft:'18%', paddingTop:'10%', paddingBottom:'8%', fontWeight:400, color:ColorFont}}>Productos</Menu.Item> 
-                    </a>
+                    </Link>
                   </Menu.ItemGroup>
                   <Menu.ItemGroup title="GlamStudio" style={{color:'#40a9ff', fontWeight:800}}>
-                    <a href="/quienes">
+                    <Link to="/quienes">
                       <Menu.Item style={{paddingLeft:'18%', paddingTop:'5%', paddingBottom:'8%', fontWeight:400, color:ColorFont}}>Quiénes somos</Menu.Item> 
-                    </a>
-                    <a href="/envios">
+                    </Link>
+                    <Link to="/envios">
                       <Menu.Item style={{paddingLeft:'18%', paddingTop:'10%', paddingBottom:'15%', fontWeight:400, color:ColorFont}}>Envíos</Menu.Item>
-                    </a>
+                    </Link>
                   </Menu.ItemGroup>
                 </Menu.SubMenu>
                 
@@ -315,7 +333,7 @@ function NavBar() {
         <nav className="menu" style={{position:'fixed', zIndex:5, width:'100%'}, estiloBarra} id="barra">
           
           <div className="menu__logo">
-            <a href="/" style={{color:'violet'}}> GlamStudio </a>
+            <Link to="/" style={{color:'violet'}}> GlamStudio </Link>
           </div>
           
           <div className="menu__container" style={{paddingTop:'5px'}, estiloMenuContainer}>
@@ -334,31 +352,31 @@ function NavBar() {
             >
               <Menu mode={"inline"}>
                 <Menu.Item>
-                  <a href="/servicios"> <span style={{fontWeight:'600', color:ColorFont}}>Servicios</span> </a>
+                  <Link to="/servicios"> <span style={{fontWeight:'600', color:ColorFont}}>Servicios</span> </Link>
                 </Menu.Item>
                 <hr />
 
                 <Menu.Item>
-                  <a href="/productos"> <span style={{fontWeight:'600', color:ColorFont}}>Productos</span> </a>
+                  <Link to="/productos"> <span style={{fontWeight:'600', color:ColorFont}}>Productos</span> </Link>
                 </Menu.Item>
                 <hr />
 
                 <Menu.SubMenu title={<span>Menú</span>} style={{display:'none'}}>
                   <Menu.ItemGroup title="Shopping" style={{color:'#40a9ff', fontWeight:800}}>
-                    <a href="/servicios">
+                    <Link to="/servicios">
                       <Menu.Item style={{paddingLeft:'18%', paddingTop:'5%', paddingBottom:'8%', fontWeight:400, color:ColorFont}}>Servicios</Menu.Item> 
-                    </a>
-                    <a href="/productos">
+                    </Link>
+                    <Link to="/productos">
                       <Menu.Item style={{paddingLeft:'18%', paddingTop:'10%', paddingBottom:'8%', fontWeight:400, color:ColorFont}}>Productos</Menu.Item> 
-                    </a>
+                    </Link>
                   </Menu.ItemGroup>
                   <Menu.ItemGroup title="GlamStudio" style={{color:'#40a9ff', fontWeight:800}}>
-                    <a href="/quienes">
+                    <Link to="/quienes">
                       <Menu.Item style={{paddingLeft:'18%', paddingTop:'5%', paddingBottom:'8%', fontWeight:400, color:ColorFont}}>Quiénes somos</Menu.Item> 
-                    </a>
-                    <a href="/envios">
+                    </Link>
+                    <Link to="/envios">
                       <Menu.Item style={{paddingLeft:'18%', paddingTop:'10%', paddingBottom:'15%', fontWeight:400, color:ColorFont}}>Envíos</Menu.Item>
-                    </a>
+                    </Link>
                   </Menu.ItemGroup>
                 </Menu.SubMenu>
 
@@ -381,8 +399,12 @@ function NavBar() {
       {renderNavbar()}
 
       {window.screen.width>787 &&
-        <a style={{textAlign:'center', padding:'0', margin:'0', position:'fixed', left:'10px', top:'80px', zIndex:'25', color:ColorFont}} onClick={()=>{dispatch(changeMode())}}>
-          <VscColorMode /> {mode.darkMode ? `Modo Oscuro` : `Modo Claro`}
+        <a style={{textAlign:'center', padding:'0', margin:'0', position:'fixed', left:'10px', top:'80px', zIndex:'25', color:ColorFont}} onClick={() => {
+          dispatch(changeMode(!DarkMode))
+          localStorage.setItem("mode", !DarkMode)
+        }
+        }>
+          <VscColorMode /> {mode.darkMode ? `Modo Claro` : `Modo Oscuro`}
         </a>
       }
     </>

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import Axios from 'axios';
-import { Row, Col, Button } from 'antd';
-import ProductImage from './Sections/ProductImage';
-import ProductInfo from './Sections/ProductInfo';
-import { addToCartFromDetail, subtractCartItemFromDetail, removeCartItemFromDetail } from '../../../_actions/user_actions';
-import { useDispatch } from 'react-redux';
-import { useSelector } from "react-redux";
-import { PRODUCT_SERVER } from '../../../hoc/Config';
+import React, { useEffect, useState } from 'react'
+import Axios from 'axios'
+import { Row, Col, Button } from 'antd'
+import ProductImage from './Sections/ProductImage'
+import ProductInfo from './Sections/ProductInfo'
+import { addToCartFromDetail, subtractCartItemFromDetail, removeCartItemFromDetail } from '../../../_actions/user_actions'
+import { useDispatch } from 'react-redux'
+import { useSelector } from "react-redux"
+import { PRODUCT_SERVER } from '../../../hoc/Config'
+import 'bootstrap/dist/css/bootstrap.min.css'
 
 
 function DetailProductPage(props) {
@@ -22,7 +23,7 @@ function DetailProductPage(props) {
             .then(response => {
                 setProduct(response.data[0])
             })
-    }, [MostrarImgs])
+    }, [MostrarImgs, productId])
 
     const mostrarImgsHandler = () => { setMostrarImgs({display:'block'}) }
 

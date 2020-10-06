@@ -5,10 +5,11 @@ import Button2 from 'react-bootstrap/Button'
 import { FormControl, InputGroup } from 'react-bootstrap'
 import { useSelector } from "react-redux"
 import { IMAGES_SERVER } from '../../../../hoc/Config'
+import './product.css';
+
 
 const { Option } = Select;
 const clasif = require('../../../utils/Clasif.json')
-
 
 function ProductInfo(props) {
 
@@ -51,27 +52,28 @@ function ProductInfo(props) {
     const ocultarEdit = () => {
         setId02({display:'none'})
         props.mostrarImgs()
-    };
+    }
 
     let Clasif = [];
     for (let i in clasif) {
         Clasif.push(clasif[i])
     }
 
-    const normFile = e => {
-        console.log('Upload event:', e)
-        if (Array.isArray(e)) {
-            return e
-        }
-        return e && e.fileList;
-    };
+    // const normFile = e => {
+    //     console.log('Upload event:', e)
+    //     if (Array.isArray(e)) {
+    //         return e
+    //     }
+    //     return e && e.fileList;
+    // }
 
+    console.log(Product);
     const clasifX = "Clasif. (Actual: " + clasif[Product.types] + ")"
     const precioX = "Precio (Actual: $" + Product.price + ")"
 
     const checkboxer = (e) => {
         console.log(`checked = ${e.target.checked}`)
-    };
+    }
 
     let clasifY = Product.types;
     const clasi = (value) => {
@@ -82,23 +84,23 @@ function ProductInfo(props) {
     return (
 
         <div style={{marginRight:'5%'}}>
-            {!user || !user.userData || !user.userData.isAdmin &&
+            {
                 <Descriptions title="Información del Producto" style={{border:'1px solid lightgray', textAlign:'center'}}>
                     <Descriptions.Item label="Precio" style={{fontWeight:'600', border:'1px solid lightgray', padding:'8px 0 10px 15px'}}> ${Product.price} </Descriptions.Item>
                     <Descriptions.Item label="Disponible" style={{border:'1px solid lightgray', padding:'8px 0 10px 15px'}}> Consultar </Descriptions.Item>
                     <Descriptions.Item label="Envíos" style={{border:'1px solid lightgray', padding:'8px 0 10px 15px'}}> Consultar </Descriptions.Item>
-                    <Descriptions.Item label="Descripción" style={{backgroundColor:'lightgray', padding:'8px 0 10px 15px'}}> {Product.description} </Descriptions.Item>
+                    <Descriptions.Item label="Descripción" style={{backgroundColor:'lightgray', padding:'8px 0 10px 15px', textAlign:'left'}}> {Product.description} </Descriptions.Item>
                 </Descriptions>
             }
             
-            {user && user.userData && user.userData.isAdmin &&
+            {/* {user && user.userData && user.userData.isAdmin &&
                 <Descriptions title="Información del Producto" style={{textAlign:'center'}}>
                     <Descriptions.Item label="Precio" style={{fontWeight:'600', border:'1px solid lightgray', padding:'8px 0 10px 15px'}}> ${Product.price} </Descriptions.Item>
                     <Descriptions.Item label="Vendidos" style={{border:'1px solid lightgray', padding:'8px 0 10px 15px'}}> {Product.sold} </Descriptions.Item>
                     <Descriptions.Item label="Vistos" style={{border:'1px solid lightgray', padding:'8px 0 10px 15px'}}> {Product.views} </Descriptions.Item>
-                    <Descriptions.Item label="Descripción" style={{backgroundColor:'lightgray', padding:'8px 0 10px 15px'}}> {Product.description} </Descriptions.Item>
+                    <Descriptions.Item label="Descripción" style={{backgroundColor:'lightgray', padding:'8px 0 10px 15px', textAlign:'left'}}> {Product.description} </Descriptions.Item>
                 </Descriptions>
-            }
+            } */}
             
             <span style={{fontWeiht:'600'}}> &nbsp; Grupo:</span> {clasif[Product.types]}
             

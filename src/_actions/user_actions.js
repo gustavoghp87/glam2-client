@@ -16,9 +16,11 @@ import {
     DARK_MODE
 } from './types'
 
-export const changeMode = () => {
+export const changeMode = (modo) => {
+    const request = modo
     return {
-        type: DARK_MODE
+        type: DARK_MODE,
+        payload: request
     }
 }
 

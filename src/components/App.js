@@ -23,10 +23,11 @@ function App() {
 
   const { ColorPrimary, ColorSecundary, ColorFont } = useSelector(state => state.mode)
   const appCss = {
-    backgroundColor:ColorPrimary,
-    maxWidth:'100%',
-    margin:'0 auto',
-    minHeight:'calc(100vh - 80px)'
+    backgroundColor: ColorPrimary,
+    maxWidth: '100%',
+    margin: '0 auto',
+    padding: '100px 0 0 0',
+    minHeight: 'calc(100vh - 80px)'
   }
 
   return (
