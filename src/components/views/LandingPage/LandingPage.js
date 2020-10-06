@@ -1,15 +1,16 @@
 import React from 'react'
 import { Carousel } from 'react-bootstrap'
-
+import { useSelector } from 'react-redux'
 
 function LandingPage() {
 
-    let presentation = {marginRight:'15%', marginLeft:'15%', marginTop:'1%', marginBottom:'15%'}
+    const { ColorPrimary, ColorSecundary, ColorFont } = useSelector(state => state.mode)
+    let presentation = {padding:'150px 15% 15% 15%', backgroundColor:ColorPrimary}
     var carrusel = {}
     let img = {}
     try {
         if (window.screen.width<=767) {
-          presentation = {marginRight:'4%', marginLeft:'4%', marginTop:'1%', marginBottom:'15%'}
+          presentation = {margin: '50px 4% 15% 4%'}
           carrusel = {maxWidth:'100%'}
         }
     } catch(e) {}

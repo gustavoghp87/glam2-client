@@ -1,9 +1,10 @@
 import React from 'react'
 import { SketchOutlined, InstagramOutlined, FacebookOutlined, WhatsAppOutlined } from '@ant-design/icons'
-import { ColorSecundary, ColorPrimary } from '../NavBar/NavBar'
+import { useSelector } from 'react-redux'
 
 function Footer() {
 
+    const { ColorPrimary, ColorSecundary, ColorFont } = useSelector(state => state.mode)
 
     const renderFooter = () => {
         if (window.screen.width>767) {

@@ -9,9 +9,10 @@ import { UserOutlined, LockFilled, GooglePlusOutlined } from '@ant-design/icons'
 import FacebookLogin from 'react-facebook-login'
 import { GoogleLogin } from 'react-google-login'
 import { USER_SERVER } from "../../../hoc/Config"
+import { ColorSecundary, ColorFont } from '../NavBar/NavBar'
+
 
 const { Title } = Typography;
-
 
 function LoginPage(props) {
   const dispatch = useDispatch();
@@ -22,7 +23,8 @@ function LoginPage(props) {
 
   const handleRememberMe = () => {setRememberMe(!rememberMe)}
 
-  const initialEmail = localStorage.getItem("rememberMe") ? localStorage.getItem("rememberMe") : ''
+  const initialEmail = localStorage
+    .getItem("rememberMe") ? localStorage.getItem("rememberMe") : ''
 
   const responseFacebook = (response) => {
     fetch(`${USER_SERVER}/login-with-facebook`, {
@@ -35,6 +37,7 @@ function LoginPage(props) {
       return res.json();
     }).then( json => {
       if (json.isEmail && json.verif) {
+        document.cookie = `token = ${json.token}`
         if (json.newUser)
           if (json.fusion) {}
           else
@@ -60,6 +63,7 @@ function LoginPage(props) {
       return res.json()
     }).then( json => {
       if (json.isEmail && json.verif) {
+        document.cookie = `token = ${json.token}`
         if (json.newUser)
           if (json.fusion) {}
           else
@@ -83,7 +87,7 @@ function LoginPage(props) {
   }
 
   var estilo = {}
-  var borde = {border:'1px solid #ffffff', borderRadius:'10px', padding:'40px', paddingBottom:'20px'}
+  var borde = {border:`1px solid ${ColorSecundary}`, borderRadius:'10px', padding:'40px', paddingBottom:'20px'}
   try {
     if (window.screen.width<767) {
       estilo = {minWidth: '175px'}
@@ -155,11 +159,11 @@ function LoginPage(props) {
 
         return (
 
-          <div className="app" style={{width:'100%', justifyContent:'initial', paddingTop:'5%'}}>
+          <div className="app" style={{width:'100%', justifyContent:'center ', paddingTop:'5%', display:'block', margin:'0 auto'}}>
 
             <div style={borde}>
               
-              <Title level={1} style={{textAlign:'center', color:'#ffffff'}}>
+              <Title level={1} style={{textAlign:'center', color:ColorFont}}>
                 Iniciar Sesión
               </Title>
               
@@ -209,7 +213,7 @@ function LoginPage(props) {
 
                 <Form.Item>
                   <Checkbox id="rememberMe" onChange={handleRememberMe} checked={rememberMe}
-                    style={{color:'#ffffff'}}>Recordarme</Checkbox>
+                    style={{color:ColorFont}}>Recordarme</Checkbox>
                   {/* <a className="login-form-forgot" href="/reset_user" style={{float:'right'}}>
                     Olvidé mi contraseña
                   </a> */}
@@ -218,7 +222,7 @@ function LoginPage(props) {
                       INGRESAR
                     </Button>
                   </div>
-                  <span style={{color:'#ffffff'}}> o... <a href="/registro">Registrarse!</a> </span>
+                  <span style={{color:ColorFont}}> o... <a href="/registro">Registrarse!</a> </span>
                 </Form.Item>
               </form>
             </div>
@@ -255,8 +259,9 @@ function LoginPage(props) {
             </button>
           )}
           buttonText="INGRESAR CON GOOGLE"
-          onSuccess={responseGoogle}
-          onFailure={err => console.log('fail', err)}
+          autoLoad={false}
+          onSuccess={() => responseGoogle()}
+          //onFailure={err => console.log('fail', err)}
           cookiePolicy={'single_host_origin'}
         />
       </Col>
@@ -264,7 +269,7 @@ function LoginPage(props) {
       <br/><br/><br/>
       <br/><br/><br/>
 
-      <p style={{textAlign:'center', marginBottom:'0', paddingBottom:'10px', color:'#ffffff'}}>
+      <p style={{textAlign:'center', marginBottom:'0', paddingBottom:'10px', color:ColorFont}}>
         Ver <a href={'/politica-de-privacidad'}>Política de Privacidad</a>
       </p>
 

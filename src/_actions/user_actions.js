@@ -12,9 +12,15 @@ import {
     GET_CART_ITEMS_USER,
     REMOVE_CART_ITEM_FROM_DETAIL,
     REMOVE_CART_ITEM_FROM_CART_PAGE,
-    ADD_ENVIO
+    ADD_ENVIO,
+    DARK_MODE
 } from './types'
 
+export const changeMode = () => {
+    return {
+        type: DARK_MODE
+    }
+}
 
 export function registerUser(dataToSubmit) {
     console.log(dataToSubmit);

@@ -1,6 +1,21 @@
 import * as types from '../_actions/types'
 
 
+export const mode = (state = {darkMode:true, ColorPrimary:'#ffffff', ColorSecundary:'lightgray', ColorFont:'#000000'}, action) => {
+    
+    switch(action.type) {
+        case types.DARK_MODE:
+            return {
+                darkMode:!state.darkMode,
+                ColorPrimary: !state.darkMode ? "#000000" : "#ffffff",
+                ColorSecundary: !state.darkMode ? "#18191a" : "lightgray",
+                ColorFont: !state.darkMode ? "#ffffff" : '#000000'
+            }
+        default:
+            return state
+    }
+}
+
 export default function (state = {}, action) {
     switch (action.type) {
         case types.REGISTER_USER:

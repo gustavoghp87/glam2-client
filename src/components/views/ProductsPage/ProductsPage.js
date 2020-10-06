@@ -141,7 +141,9 @@ function LandingPage() {
 
         <div style={{width:'75%', margin:'3rem auto'}}>
             <div style={{textAlign:'center'}}>
-                <h2> Nuestros Productos  <SmileOutlined /> </h2>
+                <h2 style={{display:'flex', alignItems:'center', justifyContent:'center', height:'70px', margin:'auto'}}>
+                    Nuestros Productos &nbsp; <SmileOutlined />
+                </h2>
                 <br/>
             </div>
 
@@ -165,15 +167,10 @@ function LandingPage() {
 
             {/* Search  */}
             
-            <div style={{display:'flex', justifyContent:'flex-end', margin:'1rem auto'}}>
-
-                <SearchFeature
-                    refreshFunction={updateSearchTerms}
-                />
-
+            <div style={{display:'flex', justifyContent:'flex-end', margin:'1.2rem auto 2.8rem auto'}}>
+                <SearchFeature refreshFunction={updateSearchTerms} />
             </div>
 
-            <br/>
 
             {Products.length === 0 ?
                 <div style={{display:'flex', height:'300px', justifyContent:'center', alignItems:'center'}}>

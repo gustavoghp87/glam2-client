@@ -2,29 +2,30 @@ import React, { useState } from 'react'
 import { Drawer, Button, Menu, Badge } from 'antd'
 import './Sections/Navbar.css'
 import MenuIcon from '@material-ui/icons/Menu'
-import { useSelector } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Link } from 'react-router-dom'
 import { ShoppingCartOutlined, UploadOutlined } from '@ant-design/icons'
-import { logoutUser } from '../../../_actions/user_actions'
+import { logoutUser, changeMode } from '../../../_actions/user_actions'
+import { VscColorMode } from 'react-icons/vsc'
 
-export const darkMode = false
+
+export let darkMode = false
 export const ColorPrimary = darkMode ? "#000000" : "#ffffff"
 export const ColorSecundary = darkMode ? "#18191a" : "lightgray"
-export const ColorFont = darkMode ? "#ffffff" : null
+export const ColorFont = darkMode ? "#ffffff" : '#000000'
 
-
-function NavBar(props) {
-
-  const estiloBarra = {backgroundColor: ColorPrimary}
-  const estiloMenuContainer = {backgroundColor: ColorPrimary}
-
-  const [visible, setVisible] = useState(false)
-
-  const showDrawer = () => { setVisible(true) }
-
-  const onClose = () => { setVisible(false) }
+function NavBar() {
 
   const user = useSelector(state => state.user)
+  const dispatch = useDispatch()
+  const { ColorPrimary, ColorSecundary, ColorFont } = useSelector(state => state.mode)
+  const mode = useSelector(state => state.mode)
+  const estiloBarra = {backgroundColor: ColorPrimary}
+  const estiloMenuContainer = {backgroundColor: ColorPrimary}
+  const [visible, setVisible] = useState(false)
+  const showDrawer = () => { setVisible(true) }
+  const onClose = () => { setVisible(false) }
+  
 
   const renderEmailFloat = () => {
     try {
@@ -38,10 +39,10 @@ function NavBar(props) {
 
   const renderEmail = () => { try { return (user.userData.email) } catch(e) {} }
 
-  var numCarrito = 0
+  let numCarrito = 0
   const reCarrito = () => {
     try {
-      numCarrito = 0;
+      numCarrito = 0
       user.userData.cart.forEach(element => {
         numCarrito += element.quantity
       })
@@ -54,7 +55,6 @@ function NavBar(props) {
     logoutUser()
     window.location.href = '/login'
   }
-
 
 
   let estiloHistory1 = {display:'block', color:ColorFont, fontWeight:'600'}
@@ -256,8 +256,9 @@ function NavBar(props) {
   const renderNavbar = () => {
     if (window.screen.width>899) {
       return (
-      <div>
-        <nav className="menu" style={{position:'fixed', zIndex:5, width:'100%'}, estiloBarra} id="barra">
+      <>
+      <div style={{position:'fixed', top:'0', width:'100%', zIndex:2}}>
+        <nav className="menu" style={{ width:'100%'}, estiloBarra} id="barra">
           
           <div className="menu__logo">
             <a href="/" style={{color:'violet'}}> GlamStudio </a>
@@ -303,10 +304,10 @@ function NavBar(props) {
             
           </div>
         </nav>
+        </div>
 
         <div> {renderEmailFloat()} </div>
-
-      </div>
+      </>
       )
     } else {
       return (
@@ -375,10 +376,15 @@ function NavBar(props) {
   }
 
 
-
   return (
     <>
       {renderNavbar()}
+
+      {window.screen.width>787 &&
+        <a style={{textAlign:'center', padding:'0', margin:'0', position:'fixed', left:'10px', top:'80px', zIndex:'25', color:ColorFont}} onClick={()=>{dispatch(changeMode())}}>
+          <VscColorMode /> {mode.darkMode ? `Modo Oscuro` : `Modo Claro`}
+        </a>
+      }
     </>
   )
 }

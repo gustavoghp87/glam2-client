@@ -5,6 +5,7 @@ import * as Yup from 'yup'
 import { registerUser } from "../../../_actions/user_actions"
 import { useDispatch } from "react-redux"
 import { Form, Input, Button } from 'antd'
+import { ColorSecundary, ColorFont } from "../NavBar/NavBar"
 
 
 const formItemLayout = {
@@ -30,7 +31,6 @@ const tailFormItemLayout = {
     },
   },
 }
-
 
 function RegisterPage(props) {
 
@@ -93,8 +93,7 @@ function RegisterPage(props) {
           isSubmitting,
           handleChange,
           handleBlur,
-          handleSubmit,
-          handleReset,
+          handleSubmit
         } = props;
 
 
@@ -108,7 +107,7 @@ function RegisterPage(props) {
         
         const estilo2 = {display:'inline-block', margin:'auto', textAlign:'center'}
         var estiloApp = {width:'600px', paddingTop:'60px', margin:'auto'}
-        var borde = {border:'1px solid gray', borderRadius:'10px', paddingTop:'40px', paddingBottom:'20px'}
+        var borde = {border:`1px solid ${ColorSecundary}`, borderRadius:'10px', paddingTop:'40px', paddingBottom:'20px'}
         try {
           if (window.screen.width<767) {
             estiloApp = {width:'300px', paddingTop:'5%', margin:'auto'}
@@ -123,8 +122,8 @@ function RegisterPage(props) {
             <div style={estilo2}>
               <div style={borde}>
 
-                <h1 style={{color:'#ffffff'}}> Registrarse </h1>
-                <div style={{marginBottom:'20px'}}></div>
+                <h1 style={{color:ColorFont}}> Registrarse </h1>
+                <div style={{marginBottom:'28px'}}></div>
 
                 <Form {...formItemLayout} onSubmit={handleSubmit}>
                   <Form.Item required label="Nombre">
@@ -224,9 +223,9 @@ function RegisterPage(props) {
 
               <br/> <br/>
               
-              <h6 style={{color:'#ffffff'}}>Si creas una cuenta pero después ingresas por Facebook o Google, los métodos de ingreso se unificarán (excepto que uses distintos emails).</h6>
+              <h6 style={{color:ColorFont}}>Si creas una cuenta pero después ingresas por Facebook o Google, los métodos de ingreso se unificarán (excepto que uses distintos emails).</h6>
               <br/>
-              <h6 style={{color:'#ffffff'}}>Si eliges una contraseña demasiado sencilla, tu navegador puede darte un mensaje de advertencia de "tu contraseña quedó expuesta"; se recomienda al menos 10 caracteres combinando letras y números.</h6>
+              <h6 style={{color:ColorFont}}>Si eliges una contraseña demasiado sencilla, tu navegador puede darte un mensaje de advertencia de "tu contraseña quedó expuesta"; se recomienda al menos 10 caracteres combinando letras y números.</h6>
               <br/>
             </div>
             

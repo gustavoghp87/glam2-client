@@ -16,15 +16,23 @@ import SalesPage from './views/SalesPage/SalesPage'
 import PolicyPage from './views/LoginPage/PolicyPage'
 import UsePage from './views/LoginPage/UsePage'
 import ReturnsPage from './views/LoginPage/ReturnsPage'
-import { ColorPrimary } from './views/NavBar/NavBar'
+import { useSelector } from 'react-redux'
 
 
 function App() {
 
+  const { ColorPrimary, ColorSecundary, ColorFont } = useSelector(state => state.mode)
+  const appCss = {
+    backgroundColor:ColorPrimary,
+    maxWidth:'100%',
+    margin:'0 auto',
+    minHeight:'calc(100vh - 80px)'
+  }
+
   return (
     <Suspense fallback={(<div>Cargando...</div>)}>
       <NavBar />
-      <div style={{backgroundColor:ColorPrimary, maxWidth:'90%', margin:'15px, auto 200px auto', minHeight:'calc(100vh - 80px)'}}>
+      <div style={appCss}>
         <Switch>
           <Route exact path="/" component={Auth(LandingPage, null)} />
           <Route exact path="/servicios" component={Auth(ServicesPage, null)} />
