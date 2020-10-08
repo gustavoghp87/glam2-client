@@ -1,10 +1,16 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { SketchOutlined, InstagramOutlined, FacebookOutlined, WhatsAppOutlined } from '@ant-design/icons'
 import { useSelector } from 'react-redux'
 
+
 function Footer() {
 
-    const { ColorPrimary, ColorSecundary, ColorFont } = useSelector(state => state.mode)
+    const mode = useSelector(state => state.mode)
+    const [DarkMode, setDarkMode] = useState(mode.darkMode)
+    const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
+    const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
+    const [ColorFont, setColorFont] = useState(mode.ColorFont)
+    
 
     const renderFooter = () => {
         if (window.screen.width>767) {

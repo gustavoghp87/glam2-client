@@ -18,6 +18,7 @@ import {
 
 export const changeMode = (modo) => {
     const request = modo
+    console.log("CAMBIANDO A", modo)
     return {
         type: DARK_MODE,
         payload: request

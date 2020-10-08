@@ -1,4 +1,6 @@
+
 //SERVER ROUTES
+
 const base1 = 'https://glamstudio.com.ar'
 const base = 'https://glam2-rest-api.herokuapp.com'
 const base3 = 'http://localhost:5000'

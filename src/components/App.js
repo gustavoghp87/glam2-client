@@ -5,7 +5,7 @@ import LandingPage from "./views/LandingPage/LandingPage.js"
 import ServicesPage from "./views/ServicesPage/ServicesPage.js"
 import ProductsPage from './views/ProductsPage/ProductsPage.js'
 import LoginPage from "./views/LoginPage/LoginPage.js"
-import RegisterPage from "./views/RegisterPage/RegisterPage.js"
+import RegisterPage from "./views/LoginPage/RegisterPage.js"
 import NavBar from "./views/NavBar/NavBar"
 import Footer from "./views/Footer/Footer"
 import UploadProductPage from './views/UploadProductPage/UploadProductPage'

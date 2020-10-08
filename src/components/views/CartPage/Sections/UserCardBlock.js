@@ -1,13 +1,19 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button } from 'react-bootstrap'
 import { Row, Col } from 'antd'
 import { Form } from 'react-bootstrap'
 import { IMAGES_SERVER } from '../../../../hoc/Config'
-import { ColorSecundary } from '../../NavBar/NavBar'
+import { useSelector } from "react-redux";
 
 
 function UserCardBlock(props) {
 
+    const mode = useSelector(state => state.mode)
+    const [DarkMode, setDarkMode] = useState(mode.darkMode)
+    const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
+    const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
+    const [ColorFont, setColorFont] = useState(mode.ColorFont)
+  
     const renderCartImage = (images) => {
         if(images.length > 0) {
             let image = images[0]

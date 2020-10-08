@@ -2,10 +2,10 @@ import * as types from '../_actions/types'
 
 
 export const mode = (state = {
-    darkMode: false,
-    ColorPrimary:'#ffffff',
-    ColorSecundary:'lightgray',
-    ColorFont:'#000000'
+    darkMode: true,
+    ColorPrimary:'#000000',
+    ColorSecundary:'#18191a',
+    ColorFont:'#ffffff'
 }, action) => {
     
     switch(action.type) {

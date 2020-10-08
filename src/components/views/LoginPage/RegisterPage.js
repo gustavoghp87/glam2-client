@@ -1,11 +1,10 @@
-import React from "react"
+import React, { useState } from "react"
 import moment from "moment"
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { registerUser } from "../../../_actions/user_actions"
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { Form, Input, Button } from 'antd'
-import { ColorSecundary, ColorFont } from "../NavBar/NavBar"
 
 
 const formItemLayout = {
@@ -33,6 +32,12 @@ const tailFormItemLayout = {
 }
 
 function RegisterPage(props) {
+
+  const mode = useSelector(state => state.mode)
+  const [DarkMode, setDarkMode] = useState(mode.darkMode)
+  const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
+  const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
+  const [ColorFont, setColorFont] = useState(mode.ColorFont)
 
   const dispatch = useDispatch()
 

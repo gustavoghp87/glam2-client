@@ -4,22 +4,27 @@ import { loginUser } from "../../../_actions/user_actions"
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { Form, Input, Button, Checkbox, Typography, Col } from 'antd'
-import { useDispatch } from "react-redux"
+import { useSelector, useDispatch } from "react-redux"
 import { UserOutlined, LockFilled, GooglePlusOutlined } from '@ant-design/icons'
 import FacebookLogin from 'react-facebook-login'
 import { GoogleLogin } from 'react-google-login'
 import { USER_SERVER } from "../../../hoc/Config"
-import { ColorSecundary, ColorFont } from '../NavBar/NavBar'
 
 
-const { Title } = Typography;
+const { Title } = Typography
 
 function LoginPage(props) {
   const dispatch = useDispatch();
   const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false
 
+  const mode = useSelector(state => state.mode)
   const [formErrorMessage, setFormErrorMessage] = useState('')
   const [rememberMe, setRememberMe] = useState(rememberMeChecked)
+  const [DarkMode, setDarkMode] = useState(mode.darkMode)
+  const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
+  const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
+  const [ColorFont, setColorFont] = useState(mode.ColorFont)
+
 
   const handleRememberMe = () => {setRememberMe(!rememberMe)}
 
@@ -157,7 +162,7 @@ function LoginPage(props) {
 
         return (
 
-          <div className="app" style={{width:'100%', justifyContent:'center ', paddingTop:'5%', display:'block', margin:'0 auto'}}>
+          <div className="app" style={{width:'100%', justifyContent:'center', paddingTop:'5%', display:'block', margin:'0 auto'}}>
 
             <div style={borde}>
               

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Drawer, Button, Menu, Badge } from 'antd'
-import './Sections/Navbar.css'
+import './Navbar.css'
 import MenuIcon from '@material-ui/icons/Menu'
 import { useSelector, useDispatch } from "react-redux"
 import { Link } from 'react-router-dom'
@@ -9,18 +9,13 @@ import { logoutUser, changeMode } from '../../../_actions/user_actions'
 import { VscColorMode } from 'react-icons/vsc'
 
 
-export let darkMode = false
-export const ColorPrimary = darkMode ? "#000000" : "#ffffff"
-export const ColorSecundary = darkMode ? "#18191a" : "lightgray"
-export const ColorFont = darkMode ? "#ffffff" : '#000000'
-
 function NavBar() {
 
   const user = useSelector(state => state.user)
   const mode = useSelector(state => state.mode)
   const dispatch = useDispatch()
 
-  const [DarkMode, setDarkMode] = useState(false)
+  const [DarkMode, setDarkMode] = useState(mode.darkMode)
   const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
   const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
   const [ColorFont, setColorFont] = useState(mode.ColorFont)
@@ -32,27 +27,27 @@ function NavBar() {
   const onClose = () => { setVisible(false) }
 
   useEffect(() => {
-    let local = localStorage.getItem("mode")
-    local='true' ? local=true : local=false
-    console.log("local", local)
-
     setColorPrimary(mode.ColorPrimary)
     setColorSecundary(mode.ColorSecundary)
     setColorFont(mode.ColorFont)
-    setDarkMode(mode.darkMode)
-  }, [mode, DarkMode])
-  console.log(DarkMode, mode.darkMode, localStorage.getItem("mode"))
+  }, [DarkMode])
 
+  console.log(DarkMode, mode.darkMode)
+  console.log("Colores:", ColorPrimary, ColorSecundary, ColorFont)
 
+  const handleColor = () => {
+    dispatch(changeMode(!DarkMode))
+    setDarkMode(!DarkMode)
+  }
 
   const renderEmailFloat = () => {
     try {
       return (
-        <div style={{overflow:'hidden', textAlign:'center', padding:'0', margin:'0', position:'fixed', left:'10px', bottom:'1.5%', zIndex:'25'}}>
-          <h6 style={{textAlign:'center', color:'gray'}}> {user.userData.email} </h6>
+        <div style={{overflow:'hidden', textAlign:'center', padding:'0', margin:'0', position:'fixed', left:'10px', bottom:'1.5%', zIndex:'5'}}>
+          <h6 style={{textAlign:'center', color:ColorFont}}> {user.userData.email} </h6>
         </div>
       )
-    } catch(e) {}
+    } catch {}
   }
 
   const renderEmail = () => { try { return (user.userData.email) } catch(e) {} }
@@ -99,9 +94,12 @@ function NavBar() {
 
 
   const menuDerechoDesktop = () => {
-    if (user.userData && user.userData.isAuth && user.userData.isAdmin) {
-      return (
-        <Menu mode={"horizontal"}>
+
+    return (
+      <Menu mode={"horizontal"} style={{backgroundColor:ColorPrimary}}>
+
+        {user.userData && user.userData.isAuth && user.userData.isAdmin &&
+        <>
           <Menu.Item>
             <Link to="/ventas" style={estiloVentas}> Ventas </Link>
           </Menu.Item>
@@ -110,7 +108,12 @@ function NavBar() {
             <Link to="/product/upload" style={subir1}> <UploadOutlined style={{fontSize:25}}/>Subir</Link>
             <Link to="/product/upload" style={subir2}> <UploadOutlined style={{fontSize:25}}/></Link>
           </Menu.Item>
+        </>
+        }
 
+        {user.userData && user.userData.isAuth
+        ?
+          <>
           <Menu.Item>
             <Link to="/history" style={estiloHistory1}>Historial de Compras</Link>
             <Link to="/history" style={estiloHistory2}>Compras</Link>
@@ -119,7 +122,7 @@ function NavBar() {
           <Menu.Item id="cart">
             <Badge count={user.userData && numCarrito}>
   
-              <span style={{fontWeight:'600'}}> Mi Carrito &nbsp; </span>
+              <span style={{fontWeight:'600', color:ColorFont}}> Mi Carrito &nbsp; </span>
 
               <Link to="/user/cart" style={badge}>
                 <ShoppingCartOutlined style={{fontSize:30}}/>
@@ -131,55 +134,30 @@ function NavBar() {
           <Menu.Item>
             <a onClick={logoutHandler} style={{color:'red'}}>Cerrar Sesión</a>
           </Menu.Item>
-        </Menu>
-      )
-    } else if (user.userData && user.userData.isAuth) {
-      return (
-        <Menu mode={"horizontal"}>
-  
-          <Menu.Item>
-            <Link to="/history" style={estiloHistory1}>Historial de Compras</Link>
-            <Link to="/history" style={estiloHistory2}>Compras</Link>
-          </Menu.Item>
-  
-          <Menu.Item id="cart">
-            <Badge count={user.userData && numCarrito}>
-  
-              <span style={{fontWeight:'600'}}> Mi Carrito &nbsp; </span>
+          </>
+        :
+          <>
+            <Menu.Item>
+              <Link style={{color:ColorFont}} to="/login"> Iniciar Sesión </Link>
+            </Menu.Item>
+            <Menu.Item>
+              <Link style={{color:ColorFont}} to="/registro">Registrarse</Link>
+            </Menu.Item>
+          </>
+        }
 
-              <Link to="/user/cart" style={badge}>
-                <ShoppingCartOutlined style={{fontSize:30}}/>
-              </Link>
-            </Badge>
-
-          </Menu.Item>
-          
-          <Menu.Item>
-            <a onClick={logoutHandler} style={{color:'red'}}>Cerrar Sesión</a>
-          </Menu.Item>
-        </Menu>
-      )
-    } else {
-      return (
-        <Menu mode={"horizontal"}>
-          <Menu.Item>
-            <Link style={{color:ColorFont}} to="/login"> Iniciar Sesión </Link>
-          </Menu.Item>
-          <Menu.Item>
-            <Link style={{color:ColorFont}} to="/registro">Registrarse</Link>
-          </Menu.Item>
-        </Menu>
-      )
-    }
+      </Menu>
+    )
   }
 
 
 
 
   const menuDerechoMobile = () => {
-    if (user.userData && user.userData.isAuth && user.userData.isAdmin) {
-      return (
-        <Menu mode={"inline"}>
+    return (
+      <Menu mode={"inline"} style={{backgroundColor:ColorPrimary}}>
+        {user.userData && user.userData.isAuth && user.userData.isAdmin &&
+        <>
           <Menu.Item>
             <Link to="/ventas" style={estiloVentas}> Ventas </Link>
           </Menu.Item>
@@ -190,7 +168,12 @@ function NavBar() {
             <Link to="/product/upload" style={subir2}> <UploadOutlined style={{fontSize:25}}/></Link>
           </Menu.Item>
           <hr />
-  
+        </>
+        }
+
+        {user && user.userData && user.userData.isAuth
+        ?
+        <>
           <Menu.Item>
             <Link to="/history" style={estiloHistory1} id="compras1">Historial de Compras</Link>
             <Link to="/history" style={estiloHistory2} id="compras2">Compras</Link>
@@ -199,9 +182,7 @@ function NavBar() {
   
           <Menu.Item id="cart">
             <Badge count={user.userData && numCarrito}>
-
-              <span style={{fontWeight:'600'}}> Mi Carrito &nbsp; </span>
-
+              <span style={{fontWeight:'600', color:ColorFont}}> Mi Carrito &nbsp; </span>
               <Link to="/user/cart" style={badge}>
                 <ShoppingCartOutlined style={{fontSize:30}}/>
               </Link>
@@ -219,55 +200,21 @@ function NavBar() {
             <a onClick={logoutHandler} style={{color:'red'}}>Cerrar Sesión</a>
           </Menu.Item>
           <hr />
-        </Menu>
-      )
-    } else if (user.userData && user.userData.isAuth) {
-      return (
-        <Menu mode={"inline"}>
-  
-          <Menu.Item>
-            <Link to="/history" style={estiloHistory1} id="compras1">Historial de Compras</Link>
-            <Link to="/history" style={estiloHistory2} id="compras2">Compras</Link>
-          </Menu.Item>
-          <hr />
-  
-          <Menu.Item id="cart">
-            <Badge count={user.userData && numCarrito}>
-
-              <span style={{fontWeight:'600'}}> Mi Carrito &nbsp; </span>
-  
-              <Link to="/user/cart" style={badge}>
-                <ShoppingCartOutlined style={{fontSize:30}}/>
-              </Link>
-            </Badge>
-
-          </Menu.Item>
-          <hr />
-  
-          <Menu.Item>
-            <div> {renderEmail()} </div>
-          </Menu.Item>
-          <hr />
-          
-          <Menu.Item>
-            <a onClick={logoutHandler} style={{color:'red'}}>Cerrar Sesión</a>
-          </Menu.Item>
-          <hr />
-        </Menu>
-      )
-    } else {
-      return (
-        <Menu mode={"inline"}>
+        </>
+        :
+        <>
           <Menu.Item>
             <Link style={{color:ColorFont}} to="/login">Iniciar Sesión</Link>
           </Menu.Item>
           <Menu.Item>
             <Link style={{color:ColorFont}} to="/registro">Registrarse</Link>
           </Menu.Item>
-        </Menu>
-      )
-    }
+        </>
+        }
+      </Menu>
+    )
   }
+
 
 
 
@@ -285,34 +232,13 @@ function NavBar() {
           <div className="menu__container" style={{paddingTop:'5px'}}>
             
             <div className="menu_left">
-              <Menu mode={"horizontal"}>
+              <Menu mode={"horizontal"} style={{backgroundColor:ColorPrimary}}>
                 <Menu.Item>
                   <Link to="/servicios"> <span style={{fontWeight:'600', color:ColorFont}}>Servicios</span> </Link>
                 </Menu.Item>
-
                 <Menu.Item>
                   <Link to="/productos"> <span style={{fontWeight:'600', color:ColorFont}}>Productos</span> </Link>
-                </Menu.Item>
-
-                <Menu.SubMenu title={<span>Menú</span>} style={{display:'none'}}>
-                  <Menu.ItemGroup title="Shopping" style={{color:'#40a9ff', fontWeight:800}}>
-                    <Link to="/servicios">
-                      <Menu.Item style={{paddingLeft:'18%', paddingTop:'5%', paddingBottom:'8%', fontWeight:400, color:ColorFont}}>Servicios</Menu.Item> 
-                    </Link>
-                    <Link to="/productos">
-                      <Menu.Item style={{paddingLeft:'18%', paddingTop:'10%', paddingBottom:'8%', fontWeight:400, color:ColorFont}}>Productos</Menu.Item> 
-                    </Link>
-                  </Menu.ItemGroup>
-                  <Menu.ItemGroup title="GlamStudio" style={{color:'#40a9ff', fontWeight:800}}>
-                    <Link to="/quienes">
-                      <Menu.Item style={{paddingLeft:'18%', paddingTop:'5%', paddingBottom:'8%', fontWeight:400, color:ColorFont}}>Quiénes somos</Menu.Item> 
-                    </Link>
-                    <Link to="/envios">
-                      <Menu.Item style={{paddingLeft:'18%', paddingTop:'10%', paddingBottom:'15%', fontWeight:400, color:ColorFont}}>Envíos</Menu.Item>
-                    </Link>
-                  </Menu.ItemGroup>
-                </Menu.SubMenu>
-                
+                </Menu.Item>                
               </Menu>
             </div>
             
@@ -322,9 +248,10 @@ function NavBar() {
             
           </div>
         </nav>
-        </div>
+      </div>
 
-        <div> {renderEmailFloat()} </div>
+      <div> {renderEmailFloat()} </div>
+      
       </>
       )
     } else {
@@ -338,10 +265,11 @@ function NavBar() {
           
           <div className="menu__container" style={{paddingTop:'5px'}, estiloMenuContainer}>
             
-            <Button className="menu__mobile-button" type={darkMode ? "dark" : "light"} onClick={showDrawer}>
+            <Button className="menu__mobile-button" type={DarkMode ? "dark" : "light"} onClick={showDrawer}>
               <MenuIcon />
             </Button>
-            
+
+            <div style={{backgroundColor:ColorPrimary}}>
             <Drawer
               title="Navegación"
               placement="right"
@@ -350,7 +278,8 @@ function NavBar() {
               onClose={onClose}
               visible={visible}
             >
-              <Menu mode={"inline"}>
+
+              <Menu mode={"inline"} style={{backgroundColor:ColorPrimary}}>
                 <Menu.Item>
                   <Link to="/servicios"> <span style={{fontWeight:'600', color:ColorFont}}>Servicios</span> </Link>
                 </Menu.Item>
@@ -361,28 +290,10 @@ function NavBar() {
                 </Menu.Item>
                 <hr />
 
-                <Menu.SubMenu title={<span>Menú</span>} style={{display:'none'}}>
-                  <Menu.ItemGroup title="Shopping" style={{color:'#40a9ff', fontWeight:800}}>
-                    <Link to="/servicios">
-                      <Menu.Item style={{paddingLeft:'18%', paddingTop:'5%', paddingBottom:'8%', fontWeight:400, color:ColorFont}}>Servicios</Menu.Item> 
-                    </Link>
-                    <Link to="/productos">
-                      <Menu.Item style={{paddingLeft:'18%', paddingTop:'10%', paddingBottom:'8%', fontWeight:400, color:ColorFont}}>Productos</Menu.Item> 
-                    </Link>
-                  </Menu.ItemGroup>
-                  <Menu.ItemGroup title="GlamStudio" style={{color:'#40a9ff', fontWeight:800}}>
-                    <Link to="/quienes">
-                      <Menu.Item style={{paddingLeft:'18%', paddingTop:'5%', paddingBottom:'8%', fontWeight:400, color:ColorFont}}>Quiénes somos</Menu.Item> 
-                    </Link>
-                    <Link to="/envios">
-                      <Menu.Item style={{paddingLeft:'18%', paddingTop:'10%', paddingBottom:'15%', fontWeight:400, color:ColorFont}}>Envíos</Menu.Item>
-                    </Link>
-                  </Menu.ItemGroup>
-                </Menu.SubMenu>
-
               </Menu>
               {menuDerechoMobile()}
             </Drawer>
+            </div>
           </div>
         </nav>
 
@@ -399,12 +310,8 @@ function NavBar() {
       {renderNavbar()}
 
       {window.screen.width>787 &&
-        <a style={{textAlign:'center', padding:'0', margin:'0', position:'fixed', left:'10px', top:'80px', zIndex:'25', color:ColorFont}} onClick={() => {
-          dispatch(changeMode(!DarkMode))
-          localStorage.setItem("mode", !DarkMode)
-        }
-        }>
-          <VscColorMode /> {mode.darkMode ? `Modo Claro` : `Modo Oscuro`}
+        <a style={{textAlign:'center', padding:'0', margin:'0', position:'fixed', left:'10px', top:'80px', zIndex:'25', color:ColorFont}} onClick={() => {handleColor()}}>
+          <VscColorMode /> {mode.DarkMode ? `Modo Claro` : `Modo Oscuro`}
         </a>
       }
     </>
