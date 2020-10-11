@@ -21,37 +21,39 @@ import { useSelector } from 'react-redux'
 
 function App() {
 
-  const { ColorPrimary, ColorSecundary, ColorFont } = useSelector(state => state.mode)
+  const { ColorPrimary, ColorSecundary, ColorFont, darkMode } = useSelector(state => state.mode)
+  const mobile = window.screen.width<787 ? true : false
   const appCss = {
     backgroundColor: ColorPrimary,
     maxWidth: '100%',
     margin: '0 auto',
-    padding: '100px 0 0 0',
+    padding: mobile ? '25px 0 0 0' : '100px 0 0 0',
     minHeight: 'calc(100vh - 80px)'
   }
 
+
   return (
     <Suspense fallback={(<div>Cargando...</div>)}>
-      <NavBar />
+      <NavBar ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} darkMode={darkMode} mobile={mobile} />
       <div style={appCss}>
         <Switch>
-          <Route exact path="/" component={Auth(LandingPage, null)} />
-          <Route exact path="/servicios" component={Auth(ServicesPage, null)} />
-          <Route exact path="/productos" component={Auth(ProductsPage, null)} />
-          <Route exact path="/login" component={Auth(LoginPage, false)} />
-          <Route exact path="/politica-de-privacidad" component={Auth(PolicyPage, null)} />
-          <Route exact path="/condiciones-de-uso" component={Auth(UsePage, null)} />
-          <Route exact path="/politica-de-devoluciones" component={Auth(ReturnsPage, null)} />
-          <Route exact path="/registro" component={Auth(RegisterPage, false)} />
+          <Route exact path="/" component={Auth(LandingPage, null)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
+          <Route exact path="/servicios" component={Auth(ServicesPage, null)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
+          <Route exact path="/productos" component={Auth(ProductsPage, null)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
+          <Route exact path="/login" component={Auth(LoginPage, false)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
+          <Route exact path="/politica-de-privacidad" component={Auth(PolicyPage, null)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
+          <Route exact path="/condiciones-de-uso" component={Auth(UsePage, null)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
+          <Route exact path="/politica-de-devoluciones" component={Auth(ReturnsPage, null)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
+          <Route exact path="/registro" component={Auth(RegisterPage, false)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
           {/* <Route exact path="/product/upload" component={Auth(UploadProductPage, true)} /> */}
-          <Route exact path="/product/upload" component={Auth(UploadProductPage, true)} />
-          <Route exact path="/ventas" component={Auth(SalesPage, true)} />
-          <Route exact path="/product/:productId" component={Auth(DetailProductPage, null)} />
-          <Route exact path="/user/cart" component={Auth(CartPage, true)} />
-          <Route exact path="/history" component={Auth(HistoryPage, true)} />
+          <Route exact path="/product/upload" component={Auth(UploadProductPage, true)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
+          <Route exact path="/ventas" component={Auth(SalesPage, true)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
+          <Route exact path="/product/:productId" component={Auth(DetailProductPage, null)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
+          <Route exact path="/user/cart" component={Auth(CartPage, true)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
+          <Route exact path="/history" component={Auth(HistoryPage, true)} ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
         </Switch>
       </div>
-      <Footer />
+      <Footer ColorPrimary={ColorPrimary} ColorSecundary={ColorSecundary} ColorFont={ColorFont} mobile={mobile} />
     </Suspense>
   )
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Drawer, Button, Menu, Badge } from 'antd'
 import './Navbar.css'
 import MenuIcon from '@material-ui/icons/Menu'
@@ -7,44 +7,28 @@ import { Link } from 'react-router-dom'
 import { ShoppingCartOutlined, UploadOutlined } from '@ant-design/icons'
 import { logoutUser, changeMode } from '../../../_actions/user_actions'
 import { VscColorMode } from 'react-icons/vsc'
+import { mobile } from '../../App'
 
 
-function NavBar() {
+function NavBar(props) {
 
   const user = useSelector(state => state.user)
   const mode = useSelector(state => state.mode)
   const dispatch = useDispatch()
 
-  const [DarkMode, setDarkMode] = useState(mode.darkMode)
-  const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
-  const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
-  const [ColorFont, setColorFont] = useState(mode.ColorFont)
-
-  const estiloBarra = {backgroundColor: ColorPrimary}
-  const estiloMenuContainer = {backgroundColor: ColorPrimary}
+  const estiloBarra = {backgroundColor: props.ColorPrimary}
+  const estiloMenuContainer = {backgroundColor: props.ColorPrimary}
   const [visible, setVisible] = useState(false)
   const showDrawer = () => { setVisible(true) }
   const onClose = () => { setVisible(false) }
 
-  useEffect(() => {
-    setColorPrimary(mode.ColorPrimary)
-    setColorSecundary(mode.ColorSecundary)
-    setColorFont(mode.ColorFont)
-  }, [DarkMode])
-
-  console.log(DarkMode, mode.darkMode)
-  console.log("Colores:", ColorPrimary, ColorSecundary, ColorFont)
-
-  const handleColor = () => {
-    dispatch(changeMode(!DarkMode))
-    setDarkMode(!DarkMode)
-  }
+  const handleColor = () => {dispatch(changeMode(!props.darkMode))}
 
   const renderEmailFloat = () => {
     try {
       return (
         <div style={{overflow:'hidden', textAlign:'center', padding:'0', margin:'0', position:'fixed', left:'10px', bottom:'1.5%', zIndex:'5'}}>
-          <h6 style={{textAlign:'center', color:ColorFont}}> {user.userData.email} </h6>
+          <h6 style={{textAlign:'center', color:props.ColorFont}}> {user.userData.email} </h6>
         </div>
       )
     } catch {}
@@ -70,18 +54,18 @@ function NavBar() {
   }
 
 
-  let estiloHistory1 = {display:'block', color:ColorFont, fontWeight:'600'}
+  let estiloHistory1 = {display:'block', color:props.ColorFont, fontWeight:'600'}
   let estiloHistory2 = {display:'none'}
-  var subir1 = {display:'block', color:ColorFont, fontWeight:'600'}
+  var subir1 = {display:'block', color:props.ColorFont, fontWeight:'600'}
   var subir2 = {display:'none'}
-  let estiloVentas = {display:'block', color:ColorFont, fontWeight:'600'}
+  let estiloVentas = {display:'block', color:props.ColorFont, fontWeight:'600'}
   let badge = {marginRight: -9, color:'#667777'}
   try {
     if (window.screen.width>899 && window.screen.width<=1000) {
       estiloHistory1 = {display:'none'}
-      estiloHistory2 = {display:'block', color:ColorFont, fontWeight:'600'}
+      estiloHistory2 = {display:'block', color:props.ColorFont, fontWeight:'600'}
       subir1 = {display:'none'}
-      subir2 = {display:'block', color:ColorFont}
+      subir2 = {display:'block', color:props.ColorFont}
       estiloVentas = {display:'none'}
     }
   } catch(e) {}
@@ -96,7 +80,7 @@ function NavBar() {
   const menuDerechoDesktop = () => {
 
     return (
-      <Menu mode={"horizontal"} style={{backgroundColor:ColorPrimary}}>
+      <Menu mode={"horizontal"} style={{backgroundColor:props.ColorPrimary}}>
 
         {user.userData && user.userData.isAuth && user.userData.isAdmin &&
         <>
@@ -105,8 +89,8 @@ function NavBar() {
           </Menu.Item>
   
           <Menu.Item>
-            <Link to="/product/upload" style={subir1}> <UploadOutlined style={{fontSize:25}}/>Subir</Link>
-            <Link to="/product/upload" style={subir2}> <UploadOutlined style={{fontSize:25}}/></Link>
+            <Link to="/product/upload" style={subir1}> <UploadOutlined style={{fontSize:25}}/> Subir </Link>
+            <Link to="/product/upload" style={subir2}> <UploadOutlined style={{fontSize:25}}/> </Link>
           </Menu.Item>
         </>
         }
@@ -115,17 +99,17 @@ function NavBar() {
         ?
           <>
           <Menu.Item>
-            <Link to="/history" style={estiloHistory1}>Historial de Compras</Link>
-            <Link to="/history" style={estiloHistory2}>Compras</Link>
+            <Link to="/history" style={estiloHistory1}> Historial de Compras </Link>
+            <Link to="/history" style={estiloHistory2}> Compras </Link>
           </Menu.Item>
   
           <Menu.Item id="cart">
             <Badge count={user.userData && numCarrito}>
   
-              <span style={{fontWeight:'600', color:ColorFont}}> Mi Carrito &nbsp; </span>
+              <span style={{fontWeight:'600', color:props.ColorFont}}> Mi Carrito &nbsp; </span>
 
               <Link to="/user/cart" style={badge}>
-                <ShoppingCartOutlined style={{fontSize:30}}/>
+                <ShoppingCartOutlined style={{fontSize:30, color:props.ColorFont}}/>
               </Link>
             </Badge>
           
@@ -138,10 +122,10 @@ function NavBar() {
         :
           <>
             <Menu.Item>
-              <Link style={{color:ColorFont}} to="/login"> Iniciar Sesión </Link>
+              <Link style={{color:props.ColorFont}} to="/login"> Iniciar Sesión </Link>
             </Menu.Item>
             <Menu.Item>
-              <Link style={{color:ColorFont}} to="/registro">Registrarse</Link>
+              <Link style={{color:props.ColorFont}} to="/registro">Registrarse</Link>
             </Menu.Item>
           </>
         }
@@ -155,7 +139,7 @@ function NavBar() {
 
   const menuDerechoMobile = () => {
     return (
-      <Menu mode={"inline"} style={{backgroundColor:ColorPrimary}}>
+      <Menu mode={"inline"} style={{backgroundColor:props.ColorPrimary}}>
         {user.userData && user.userData.isAuth && user.userData.isAdmin &&
         <>
           <Menu.Item>
@@ -175,14 +159,14 @@ function NavBar() {
         ?
         <>
           <Menu.Item>
-            <Link to="/history" style={estiloHistory1} id="compras1">Historial de Compras</Link>
-            <Link to="/history" style={estiloHistory2} id="compras2">Compras</Link>
+            <Link to="/history" style={estiloHistory1} id="compras1"> Historial de Compras </Link>
+            <Link to="/history" style={estiloHistory2} id="compras2"> Compras </Link>
           </Menu.Item>
           <hr />
   
           <Menu.Item id="cart">
             <Badge count={user.userData && numCarrito}>
-              <span style={{fontWeight:'600', color:ColorFont}}> Mi Carrito &nbsp; </span>
+              <span style={{fontWeight:'600', color:props.ColorFont}}> Mi Carrito &nbsp; </span>
               <Link to="/user/cart" style={badge}>
                 <ShoppingCartOutlined style={{fontSize:30}}/>
               </Link>
@@ -197,17 +181,17 @@ function NavBar() {
           <hr />
           
           <Menu.Item>
-            <a onClick={logoutHandler} style={{color:'red'}}>Cerrar Sesión</a>
+            <a onClick={logoutHandler} style={{color:'red'}}> Cerrar Sesión </a>
           </Menu.Item>
           <hr />
         </>
         :
         <>
           <Menu.Item>
-            <Link style={{color:ColorFont}} to="/login">Iniciar Sesión</Link>
+            <Link style={{color:props.ColorFont}} to="/login"> Iniciar Sesión </Link>
           </Menu.Item>
           <Menu.Item>
-            <Link style={{color:ColorFont}} to="/registro">Registrarse</Link>
+            <Link style={{color:props.ColorFont}} to="/registro"> Registrarse </Link>
           </Menu.Item>
         </>
         }
@@ -232,12 +216,12 @@ function NavBar() {
           <div className="menu__container" style={{paddingTop:'5px'}}>
             
             <div className="menu_left">
-              <Menu mode={"horizontal"} style={{backgroundColor:ColorPrimary}}>
+              <Menu mode={"horizontal"} style={{backgroundColor:props.ColorPrimary}}>
                 <Menu.Item>
-                  <Link to="/servicios"> <span style={{fontWeight:'600', color:ColorFont}}>Servicios</span> </Link>
+                  <Link to="/servicios"> <span style={{fontWeight:'600', color:props.ColorFont}}>Servicios</span> </Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link to="/productos"> <span style={{fontWeight:'600', color:ColorFont}}>Productos</span> </Link>
+                  <Link to="/productos"> <span style={{fontWeight:'600', color:props.ColorFont}}>Productos</span> </Link>
                 </Menu.Item>                
               </Menu>
             </div>
@@ -265,34 +249,41 @@ function NavBar() {
           
           <div className="menu__container" style={{paddingTop:'5px'}, estiloMenuContainer}>
             
-            <Button className="menu__mobile-button" type={DarkMode ? "dark" : "light"} onClick={showDrawer}>
+            <Button className="menu__mobile-button" type={props.darkMode ? "dark" : "light"} onClick={showDrawer}>
               <MenuIcon />
             </Button>
 
-            <div style={{backgroundColor:ColorPrimary}}>
-            <Drawer
-              title="Navegación"
-              placement="right"
-              className="menu_drawer"
-              closable={false}
-              onClose={onClose}
-              visible={visible}
-            >
+            <div style={{backgroundColor:props.ColorPrimary}}>
 
-              <Menu mode={"inline"} style={{backgroundColor:ColorPrimary}}>
-                <Menu.Item>
-                  <Link to="/servicios"> <span style={{fontWeight:'600', color:ColorFont}}>Servicios</span> </Link>
-                </Menu.Item>
-                <hr />
+              <Drawer
+                title="Navegación"
+                placement="right"
+                className="menu_drawer"
+                closable={false}
+                onClose={onClose}
+                visible={visible}
+              >
 
-                <Menu.Item>
-                  <Link to="/productos"> <span style={{fontWeight:'600', color:ColorFont}}>Productos</span> </Link>
-                </Menu.Item>
-                <hr />
+                <Menu mode={"inline"} style={{backgroundColor:props.ColorPrimary}}>
+                  <Menu.Item>
+                    <Link to="/servicios"> <span style={{fontWeight:'600', color:props.ColorFont}}>
+                      Servicios </span>
+                    </Link>
+                  </Menu.Item>
 
-              </Menu>
-              {menuDerechoMobile()}
-            </Drawer>
+                  <hr />
+
+                  <Menu.Item>
+                    <Link to="/productos"> <span style={{fontWeight:'600', color:props.ColorFont}}>
+                      Productos </span>
+                    </Link>
+                  </Menu.Item>
+
+                  <hr />
+
+                </Menu>
+                {menuDerechoMobile()}
+              </Drawer>
             </div>
           </div>
         </nav>
@@ -309,10 +300,52 @@ function NavBar() {
     <>
       {renderNavbar()}
 
-      {window.screen.width>787 &&
-        <a style={{textAlign:'center', padding:'0', margin:'0', position:'fixed', left:'10px', top:'80px', zIndex:'25', color:ColorFont}} onClick={() => {handleColor()}}>
-          <VscColorMode /> {mode.DarkMode ? `Modo Claro` : `Modo Oscuro`}
+      {
+      <>
+        <a style={{
+          textAlign: 'center', 
+          padding: '0', 
+          margin: '0', 
+          position: props.mobile ? 'absolute' : 'fixed', 
+          left: '10px', 
+          top: props.mobile ? '80px' : '80px', 
+          zIndex: '2', 
+          color: props.ColorFont,
+
+          }}
+          onClick={() => {handleColor()}}
+        >
+          <VscColorMode /> {props.darkMode ? `Modo Claro` : `Modo Oscuro`}
         </a>
+
+        
+        <div style={{
+          width: '80px',
+          overflow: 'hidden',
+          color: '#fff',
+          textAlign: 'center',
+          padding: '0',
+          margin: '0',
+          position: 'fixed',
+          right: '0',
+          bottom: '1.5%',
+          zIndex: '25'
+          }}>
+
+            <a className="demo-button"
+              href="https://api.whatsapp.com/send?phone=5491169575866&amp;source=&amp;data="
+              target="_blank" rel="noopener noreferrer" data-animate="fadeInRight" data-animated="true"
+            >
+
+              <img style={{width:'50px', marginBottom:'5px'}}
+                src="https://glamstudio.com.ar/imgs/whatsapp.png"
+              />
+
+              <h6 style={{textAlign:'center', color:props.ColorFont}}> Consultas y turnos </h6>
+
+            </a>
+        </div>
+      </>
       }
     </>
   )

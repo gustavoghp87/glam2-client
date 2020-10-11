@@ -1,9 +1,17 @@
-import React from 'react'
-import { SmileOutlined } from '@ant-design/icons'
-import { Card } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Card, Row } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 
 
-function ServicesPage() {
+function ServicesPage(props) {
+
+    const mode = useSelector(state => state.mode)
+
+    const [DarkMode, setDarkMode] = useState(mode.darkMode)
+    const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
+    const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
+    const [ColorFont, setColorFont] = useState(mode.ColorFont)
+
 
     const cards = {
         width: '280px',
@@ -21,13 +29,13 @@ function ServicesPage() {
     }
 
     return (
-        <div style={{width:'75%', margin:'3rem auto'}}>
+        <div style={{width:'75%', margin:'auto', textAlign:'center', padding: props.mobile ? '5px 0' : '40px 0 80px 0'}}>
 
-            <div style={{textAlign:'center', paddingBottom:'50px'}}>
-                <h2> Nuestros Servicios <SmileOutlined /> </h2>
+            <div style={{textAlign:'center', paddingBottom: props.mobile ? '5px' : '50px'}}>
+                <h2 style={{color:ColorFont}}> NUESTROS SERVICIOS </h2>
             </div>
 
-            <div className="row" style={{justifyContent:"space-evenly;"}}>
+            <Row style={{justifyContent:"space-evenly"}}>
                 <Card style={cards}>
                     <Card.Img variant="top" src="imgs/services7.png" style={images}/>
                     <Card.Body>
@@ -89,7 +97,7 @@ function ServicesPage() {
                     <Card.Footer></Card.Footer>
                 </Card>
 
-            </div>
+            </Row>
 
             <br/><br/><br/><br/><br/>
 

@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
 import { Col, Card, Row } from 'antd'
-import { SmileOutlined } from '@ant-design/icons'
 import ImageSlider from '../../utils/ImageSlider'
 import CheckBox from './Sections/CheckBox'
 import RadioBox from './Sections/RadioBox'
@@ -9,11 +8,19 @@ import { types, price } from './Sections/Datas'
 import SearchFeature from './Sections/SearchFeature'
 import { Button } from 'react-bootstrap'
 import { PRODUCT_SERVER } from '../../../hoc/Config'
+import { useSelector } from 'react-redux'
 
 
 const { Meta } = Card
 
 function LandingPage() {
+
+    const mode = useSelector(state => state.mode)
+
+    const [DarkMode, setDarkMode] = useState(mode.darkMode)
+    const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
+    const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
+    const [ColorFont, setColorFont] = useState(mode.ColorFont)
 
     const [Products, setProducts] = useState([])
     const [Skip, setSkip] = useState(0)
@@ -139,11 +146,19 @@ function LandingPage() {
 
     return (
 
-        <div style={{width:'75%', margin:'3rem auto'}}>
+        <div style={{width:'75%', margin:'auto', padding:'40px 0 80px 0'}}>
             <div style={{textAlign:'center'}}>
-                <h2 style={{display:'flex', alignItems:'center', justifyContent:'center', height:'70px', margin:'auto'}}>
-                    Nuestros Productos &nbsp; <SmileOutlined />
+                <h2 style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    height: '70px',
+                    margin: 'auto',
+                    color: ColorFont
+                }}>
+                    NUESTROS PRODUCTOS
                 </h2>
+                <br/>
                 <br/>
             </div>
 
