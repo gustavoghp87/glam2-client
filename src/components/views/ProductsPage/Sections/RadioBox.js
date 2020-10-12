@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Collapse, Radio, Row } from 'antd'
 
-const { Panel } = Collapse
 
+const { Panel } = Collapse
 
 function RadioBox(props) {
 

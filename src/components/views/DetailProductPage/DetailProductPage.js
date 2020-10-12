@@ -3,10 +3,12 @@ import Axios from 'axios'
 import { Row, Col, Button } from 'antd'
 import ProductImage from './Sections/ProductImage'
 import ProductInfo from './Sections/ProductInfo'
-import { addToCartFromDetail, subtractCartItemFromDetail, removeCartItemFromDetail } from '../../../_actions/user_actions'
-import { useSelector, useDispatch } from 'react-redux'
+import { addToCartFromDetail, subtractCartItemFromDetail, removeCartItemFromDetail }
+    from '../../../_actions/user_actions'
+import { useDispatch } from 'react-redux'
 import { PRODUCT_SERVER } from '../../../hoc/Config'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { Link } from 'react-router-dom'
 
 
 function DetailProductPage(props) {
@@ -41,11 +43,9 @@ function DetailProductPage(props) {
         dispatch(removeCartItemFromDetail(productId))
     }
 
-    const user = useSelector(state => state.user)
-
 
     const editProductHandler = (productId, title, description, price, types) => {
-        console.log(Product)
+        //console.log(Product)
         if (title.trim()==="") {title=Product.title}
         if (description.trim()==="") {description=Product.description}
         if (price.trim()==="") {price=Product.price}
@@ -63,8 +63,8 @@ function DetailProductPage(props) {
         }
 
         Axios(config).then(res => {
-            console.log(res.data)
-            if (res.data.edited===false) {alert("Algo falló al intentar editar el producto")}
+            //console.log(res.data)
+            if (!res.data.edited) alert("Algo falló al intentar editar el producto")
             window.location.href = `/product/${productId}`
         })
     }
@@ -73,35 +73,38 @@ function DetailProductPage(props) {
     const deleteProductHandler = (productId) => {
         Axios.post(`${PRODUCT_SERVER}/deleteProduct?_id=${productId}`, {token:document.cookie})
         .then(res => {
-            //console.log(res.data)
-            if (res.data.remove===false) {alert("Algo falló al intentar eliminar el producto")}
+            if (res.data.remove===false) alert("Algo falló al intentar eliminar el producto")
             window.location.href = '/productos'
         })
     }
 
 
-
     return (
 
-        <div className="postPage" style={{width:'100%', paddingTop:'2%', marginBottom:'200px'}}>
+        <div className="postPage" style={{width:'100%', paddingBottom:'200px'}}>
 
-            <Button size="large" shape="round" type="danger" href={'/productos'} style={{float:'right', padding:"0 20px 0 20px"}}>
-                Volver a Productos
+            <Button size="large" shape="round" type="danger"
+                style={{padding:'0 15px', position:'absolute', right:'0', marginRight:'20px'}}>
+
+                <Link to={'/productos'} style={{textDecoration:'none'}}> Volver a Productos </Link>
+
             </Button>
             
-            <h1 style={{textAlign:'center', marginTop:'60px'}}> {Product.title} </h1>
-            
-            <br />
 
-            <Row gutter={[16, 16]} >
+            <h1 style={{textAlign:'center', margin:'40px auto 100px auto', color:props.ColorFont}}>
+                {Product.title}
+            </h1>
+
+
+            <Row>
                 
                 <Col lg={12} xs={24} style={MostrarImgs}>
                     <ProductImage detail={Product} />
                 </Col>
-                
-                <Col lg={1}> </Col>
 
-                <Col lg={11} xs={24}>
+
+                <Col lg={12} xs={24}>
+
                     <ProductInfo
                         addToCart={addToCartHandler}
                         subtractCartItem={subtractHandler}
@@ -110,7 +113,10 @@ function DetailProductPage(props) {
                         deleteProduct={deleteProductHandler}
                         ocultarImgs={ocultarImgsHandler}
                         mostrarImgs={mostrarImgsHandler}
-                        detail={Product} />
+                        props={props}
+                        detail={Product}
+                    />
+
                 </Col>
                 
             </Row>

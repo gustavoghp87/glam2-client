@@ -4,6 +4,7 @@ import { getCartItems, removeCartItemFromCartPage, addToCartFromCartPage, subtra
 import UserCardBlock from './Sections/UserCardBlock'
 import { Result, Empty } from 'antd'
 import { IMAGES_SERVER, USER_SERVER } from '../../../hoc/Config'
+import { Link } from 'react-router-dom'
 
 
 function CartPage(props) {
@@ -11,8 +12,9 @@ function CartPage(props) {
     const dispatch = useDispatch()
     const [Total, setTotal] = useState(0)
     const [ShowTotal, setShowTotal] = useState(false)
-    const [ShowSuccess, setShowSuccess] = useState(false)
+    let ShowSuccess = false
     const user = useSelector(state => state.user)
+    const mode = useSelector(state => state.mode)
 
     useEffect(() => {
         let cartItems = []
@@ -38,7 +40,7 @@ function CartPage(props) {
         var numCarrito = 0
         try {
             cartDetail.forEach( element => {
-                numCarrito += element.quantity;    // sumar por ítem: user.userData.cart.length  
+                numCarrito += element.quantity
             })
         } catch(e) {}
         return numCarrito
@@ -69,11 +71,8 @@ function CartPage(props) {
     const AddToCart = (productId) => {
         dispatch(addToCartFromCartPage(productId))
             .then( response => {
-                //console.log("Response CARTPAGE ante agregar:", response.payload)
-                if (response.payload.length <= 0)
-                    setShowTotal(false)
-                else
-                    calculateTotal(response.payload)
+                if (response.payload.length <= 0) setShowTotal(false)
+                else calculateTotal(response.payload)
             }
         )
     }
@@ -81,11 +80,8 @@ function CartPage(props) {
     const AddEnvio = (importe) => {
         dispatch(addEnvio(importe))
             .then((response) => {
-                //console.log("Response CARTPAGE ante agregar:", response.payload)
-                if (response.payload.length <= 0)
-                    setShowTotal(false)
-                else
-                    calculateTotal(response.payload)
+                if (response.payload.length <= 0) setShowTotal(false)
+                else calculateTotal(response.payload)
             }
         )
     }
@@ -146,33 +142,28 @@ function CartPage(props) {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(bodyJson)
         })
-        .then((response) => {
-            return response.json()
-        })
-        .then((init_point) => {
-//            console.log("Llegó:", init_point);
-            window.open(init_point.url, '_blank')
-        })
+        .then(response => response.json())
+        .then(init_point => {window.open(init_point.url, '_blank')})
     }
-
-
-    var estiloCorreo = {marginBottom:'20px', color:'gray', fontSize:'1.7rem', fontWeight:'600'}
-    try {
-        if (window.screen.width<767) {
-            estiloCorreo = {marginBottom:'20px', color:'gray', fontSize:'1.5rem', fontWeight:'600'}
-        }
-    } catch(e) {}
-    
-
+  
 
     if (user.userData) {
-        const correo = user.userData.email;
+        const correo = user.userData.email
         
         return (
-            <div style={{width:'85%', margin:'20px 10% 0 8%', minHeight:'800px', textAlign:'center'}}>
+            <div style={{width:'85%', margin:'0 auto', minHeight:'800px', textAlign:'center'}}>
+
+                <br/>
                 
-                <h1 style={{marginTop:'20px', marginBottom:'0px'}}> Mi Carrito </h1>
-                <div style={estiloCorreo}>({correo})</div>
+                <h1 style={{marginTop:'20px', marginBottom:'0', color:props.ColorFont}}> Mi Carrito </h1>
+                
+                <div style={{marginBottom:'20px',
+                    color: props.ColorSecundary,
+                    fontSize: props.mobile ? '1.5rem' : '1.7rem',
+                    fontWeight:'600'
+                }}>({correo})</div>
+
+                <br/><br/>
 
                 <div>
                     <UserCardBlock
@@ -181,16 +172,22 @@ function CartPage(props) {
                         addItem={AddToCart}
                         subtractItem={SubtractToCart}
                         addEnvio={AddEnvio}
+                        ColorPrimary={props.ColorPrimary}
+                        ColorSecundary={props.ColorSecundary}
+                        ColorFont={props.ColorFont}
+                        mobile={props.mobile}
                     />
 
                     <br/>
                     <br/>
 
-                    <hr/>
+                    <hr style={{border: `1px solid ${props.ColorSecundary}`}} />
     
                     {ShowTotal ?
-                        <div style={{marginTop:'3rem'}}>
-                            <h2 style={{margin:'auto', textAlign:'center'}}> Total a pagar: ${Total.toString().replace(".", ",")} </h2>
+                        <div style={{marginTop:'3rem', color:props.ColorFont}}>
+                            <h2 style={{margin:'auto', textAlign:'center', color:props.ColorFont}}>
+                                Total a pagar: ${Total.toString().replace(".", ",")}
+                            </h2>
                             <div style={{marginBottom:'50px'}}></div>
                         </div>
                     :
@@ -200,7 +197,7 @@ function CartPage(props) {
                             <br />
                             <Empty description={false} />
                             <br/>
-                            <h2 style={{textAlign:'center'}}> No hay nada en tu carrito </h2>
+                            <h2 style={{textAlign:'center', color:props.ColorFont}}> No hay nada en tu carrito </h2>
                         </div>
                     }
                 </div>
@@ -209,10 +206,17 @@ function CartPage(props) {
                 {ShowTotal &&
     
                     <div style={{display:'block', margin:'auto', textAlign:'center'}}>
-                        <a onClick={pagarMP} style={{backgroundColor:'white', border:'0px solid white'}}>
-                            <h4>Click para pagar desde</h4>
+
+                        <a onClick={pagarMP} style={{border:'0px solid white'}}>
+
+                            <h4 style={{color:props.ColorFont}}> Click para pagar desde </h4>
+
                             <img src="/imgs/mercadopago.png" style={{maxWidth:'80%'}} />
-                            <h6 style={{marginTop:'12px'}}> No es necesario tener una cuenta en Mercado Pago </h6>
+                            
+                            <h6 style={{marginTop:'12px', color:props.ColorFont}}>
+                                No es necesario tener una cuenta en Mercado Pago
+                            </h6>
+
                         </a>
 
                     </div>
@@ -220,7 +224,9 @@ function CartPage(props) {
     
                 <br/><br/><br/><br/><br/>
                 <br/>
-                <p style={{textAlign:'center', marginBottom:'10px', paddingBottom:'0'}}>Ver <a href={'/politica-de-devoluciones'}>Política de Devoluciones</a></p>
+                <p style={{textAlign:'center', paddingBottom:'10px', margin:'0', color:props.ColorFont}}>
+                    Ver <Link to={'/politica-de-devoluciones'}>Política de Devoluciones</Link>
+                </p>
 
             </div>
         )

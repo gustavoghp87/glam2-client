@@ -8,19 +8,12 @@ import { types, price } from './Sections/Datas'
 import SearchFeature from './Sections/SearchFeature'
 import { Button } from 'react-bootstrap'
 import { PRODUCT_SERVER } from '../../../hoc/Config'
-import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 
 const { Meta } = Card
 
-function LandingPage() {
-
-    const mode = useSelector(state => state.mode)
-
-    const [DarkMode, setDarkMode] = useState(mode.darkMode)
-    const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
-    const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
-    const [ColorFont, setColorFont] = useState(mode.ColorFont)
+function ProductsPage(props) {
 
     const [Products, setProducts] = useState([])
     const [Skip, setSkip] = useState(0)
@@ -45,16 +38,12 @@ function LandingPage() {
         Axios.post(`${PRODUCT_SERVER}/getProducts`, variables)
             .then(response => {
                 if (response.data.success) {
-                    if (variables.loadMore) {
-                        setProducts([...Products, ...response.data.products])
-                    } else {
-                        setProducts(response.data.products)
-                    }
+                    if (variables.loadMore) setProducts([...Products, ...response.data.products])
+                    else setProducts(response.data.products)
                     setPostSize(response.data.postSize)
-                } else {
-                    alert('Falló carga de productos')
-                }
-            })
+                } else alert('Falló carga de productos')
+            }
+        )
     }
 
     const onLoadMore = () => {
@@ -76,11 +65,11 @@ function LandingPage() {
 
         const columna = (product) => {
             return (
-                <a href={`/product/${product._id}`}>
+                <Link to={`/product/${product._id}`}>
                     <Card hoverable={true} cover={ <ImageSlider images={product.images} /> } >
                         <Meta title={product.title} description={`$${product.price}`} />
                     </Card>
-                </a>
+                </Link>
             )
         }
 
@@ -129,17 +118,14 @@ function LandingPage() {
     }
 
     const updateSearchTerms = (newSearchTerm) => {
-
         const variables = {
             skip: 0,
             limit: Limit,
             filters: Filters,
             searchTerm: newSearchTerm
         }
-
         setSkip(0)
         setSearchTerms(newSearchTerm)
-
         getProducts(variables)
     }
 
@@ -154,7 +140,7 @@ function LandingPage() {
                     justifyContent: 'center',
                     height: '70px',
                     margin: 'auto',
-                    color: ColorFont
+                    color: props.ColorFont
                 }}>
                     NUESTROS PRODUCTOS
                 </h2>
@@ -217,4 +203,4 @@ function LandingPage() {
 }
 
 
-export default LandingPage
+export default ProductsPage

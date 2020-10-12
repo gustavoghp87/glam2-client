@@ -1,17 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Card, Row } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
 
 
 function ServicesPage(props) {
-
-    const mode = useSelector(state => state.mode)
-
-    const [DarkMode, setDarkMode] = useState(mode.darkMode)
-    const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
-    const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
-    const [ColorFont, setColorFont] = useState(mode.ColorFont)
-
 
     const cards = {
         width: '280px',
@@ -29,10 +20,15 @@ function ServicesPage(props) {
     }
 
     return (
-        <div style={{width:'75%', margin:'auto', textAlign:'center', padding: props.mobile ? '5px 0' : '40px 0 80px 0'}}>
+        <div style={{
+            width:'75%', 
+            margin:'auto', 
+            textAlign:'center', 
+            padding: props.mobile ? '5px 0' : '40px 0 80px 0'
+        }}>
 
             <div style={{textAlign:'center', paddingBottom: props.mobile ? '5px' : '50px'}}>
-                <h2 style={{color:ColorFont}}> NUESTROS SERVICIOS </h2>
+                <h2 style={{color:props.ColorFont}}> NUESTROS SERVICIOS </h2>
             </div>
 
             <Row style={{justifyContent:"space-evenly"}}>

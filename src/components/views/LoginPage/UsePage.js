@@ -5,7 +5,7 @@ function UsePage(props) {
 
 
   return (
-    <>
+    <div style={{margin: props.mobile ? '0 10px' : '0 12%', color:props.ColorFont}}>
       <br/>
       <br/>
 
@@ -250,7 +250,7 @@ function UsePage(props) {
       <br/>
       <br/>
       <br/>
-    </>
+    </div>
   )
 }
 

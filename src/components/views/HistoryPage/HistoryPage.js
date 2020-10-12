@@ -18,21 +18,12 @@ function HistoryPage(props) {
         return time
     }
 
-    let estRender1 = {display:'block'}
-    let estRender2 = {display:'none'}
-    try {
-        if (window.screen.width<=767) {
-            estRender1 = {display:'none'}
-            estRender2 = {display:'block'}
-        }
-    } catch(e) {}
-
 
     const render1 = () => (
-        <table>
+        <table style={{width:'80%', margin:'auto'}}>
             <thead>
-                <tr>
-                    <th>Fecha de Pago</th>
+                <tr style={{color:props.ColorFont}}>
+                    <th style={{minWidth:'100px'}}>Fecha de Pago</th>
                     <th>Producto</th>
                     <th>Título</th>
                     <th>Precio</th>
@@ -46,7 +37,7 @@ function HistoryPage(props) {
             <tbody>
                 {props.user.userData && props.user.userData.history &&
                     props.user.userData.history.reverse().map((item) => (
-                        <tr key={item.id}>
+                        <tr key={item.id} style={{color:props.ColorFont, backgroundColor:props.ColorPrimary}}>
                             <td>{fecha(item.dateOfPurchase)}</td>
                             <td><img style={{width:'70px'}} alt="product" src={`${item.images}`} /></td>
                             <td>{item.name}</td>
@@ -90,25 +81,26 @@ function HistoryPage(props) {
         </div>
     )
 
-    let estiloAncho = {width:'100%', display:'block', margin:'3rem auto' }
-    try {
-        if (window.screen.width<=767) {
-            estiloAncho = {width:'100%', display:'block', margin:'3rem auto' }
-        }
-    } catch(e) {}
-
 
     return (
-        <div style={estiloAncho}>
-            <div style={{textAlign:'center'}}>
-                <h1>Historial de Compras</h1>
-            </div>
-            <br />
 
-            <div style={estRender1}> {render1()} </div>
-            <div style={estRender2}> {render2()} </div>
+        <div>
+
+            <div style={{textAlign:'center'}}>
+                <h1 style={{color:props.ColorFont}}> Historial de Compras </h1>
+            </div>
+
+            <br/>
+
+            {props.mobile
+            ?
+                <>{render2()}</>
+            :
+                <>{render1()}</>
+            }
 
             <br/><br/><br/><br/><br/><br/>
+
         </div>
     )
 }

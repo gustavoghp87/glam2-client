@@ -5,7 +5,7 @@ function ReturnsPage(props) {
 
 
   return (
-    <>
+    <div style={{margin: props.mobile ? '0 10px' : '0 12%', color:props.ColorFont}}>
       <br/>
       <br/>
     
@@ -110,7 +110,7 @@ function ReturnsPage(props) {
       </p>
       <br/>
       <br/>
-    </>
+    </div>
   )
 }
 

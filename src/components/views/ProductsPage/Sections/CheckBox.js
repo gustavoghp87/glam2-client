@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { Checkbox, Collapse, Row } from 'antd'
 
-const { Panel } = Collapse
 
+const { Panel } = Collapse
 
 function CheckBox(props) {
 

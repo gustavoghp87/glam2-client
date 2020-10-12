@@ -26,10 +26,9 @@ export const changeMode = (modo) => {
 }
 
 export function registerUser(dataToSubmit) {
-    console.log(dataToSubmit);
+    console.log(dataToSubmit)
     const request = axios.post(`${USER_SERVER}/register`, dataToSubmit)
-        .then(response => response.data);
-
+        .then(response => response.data)
     return {
         type: REGISTER_USER,
         payload: request
@@ -39,7 +38,9 @@ export function registerUser(dataToSubmit) {
 export function loginUser(dataToSubmit) {
     const request = axios.post(`${USER_SERVER}/login`, dataToSubmit)
         .then(async (response) => {
+            console.log(response);
             const token = await response.data.token
+            console.log(token);
             document.cookie = `token = ${token}`
             return response.data
         })

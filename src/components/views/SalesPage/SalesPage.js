@@ -4,14 +4,13 @@ import { Card } from 'react-bootstrap'
 import axios from 'axios'
 
 
-function HistoryPage() {
+function SalesPage(props) {
 
     const [data, setData] = useState({ pagos: [] })
 
     useEffect(() => {
         ;(async () => {
             const result = await axios.post(`${USER_SERVER}/getSales`, {token:document.cookie})
-            console.log(result.data)
             setData(result.data)
         })()
     }, [])
@@ -35,49 +34,66 @@ function HistoryPage() {
     //     return diaDeCobro
     // }
 
-    let estiloAnch = {width:'75%', margin:'2rem auto'}
-    try {
-        if (window.screen.width<=767) {
-            estiloAnch = {width:'100%', margin:'2rem auto'}
-        }
-    } catch(e) {}
-
 
     return (
-        <div style={estiloAnch}>
-            
-            <div style={{textAlign:'center', margin:'2rem auto'}}>
-                <h1 style={{backgroundColor:'violet', height:'70px', lineHeight:'1.6'}}>VENTAS</h1>
+
+        <div style={{width: props.mobile ? '100%' : '75%', margin:'0 auto', paddingBottom:'400px'}}>
+    
+            <div style={{textAlign:'center', padding:'2rem auto'}}>
+                <h1 style={{
+                    backgroundColor:'violet', height:'70px', lineHeight:'1.6', color:props.ColorFont
+                }}>
+                    VENTAS
+                </h1>
             </div>
 
-            
-            
-                {data.pagos.map(item => (
-                    <Card style={{marginBottom:'20px', backgroundColor:'#eeeeee'}} key={item.mpJSON.id}>
-                        <Card.Body>
-                            <Card.Text style={{margin:'2.5% 7% 3% 7%', fontSize:'1.1rem'}}>
-                                <span> Fecha: {fecha(item.createdAt)} {item.product[0].dateOfPurchase} <br/> </span>
-                                <span> Vendidos: {
-                                    item.product.map((article, index) => (
-                                        <span key={index}> <br/>
-                                            &nbsp;&nbsp;-{article.name} | id: {article.id} | cantidad: {article.quantity} | precio: ${article.price} | <span style={{fontWeight:'600'}}> Total: ${importe(article.quantity, article.price)} </span>
-                                        </span>
-                                        )
+
+            {data.pagos.map(item => (
+                
+                <Card key={item.mpJSON.id} style={{
+                    marginTop: '25px',
+                    backgroundColor: props.ColorSecundary,
+                }}>
+
+                    <Card.Body>
+
+                        <Card.Text style={{margin:'2.5% 7% 3% 7%', fontSize:'1.1rem', color:props.ColorFont}}>
+
+                            <span> Fecha: {fecha(item.createdAt)} {item.product[0].dateOfPurchase} <br/> </span>
+                            <span> Vendidos: {
+
+                                item.product.map((article, index) => (
+                                    <span key={index}>
+                                        <br/>
+                                        &nbsp;&nbsp;-{article.name} | id: {article.id} | cantidad: {article.quantity} | precio: ${article.price} | <span style={{fontWeight:'600'}}> Total: ${importe(article.quantity, article.price)} </span>
+                                    </span>
                                     )
-                                } <br/> <span style={{fontWeight:'600'}}> Total por venta: ${item.mpJSON.transaction_amount} - Neto a recibir: ${item.mpJSON.transaction_details.net_received_amount} </span> <br/> </span>
-                                <span> Usuario: {item.user.email} <br/> </span>
-                                <span> Método de pago: {item.mpJSON.payment_method_id} - {item.mpJSON.payment_type_id} <br/> </span>
-                                <span> Identificador de pago: {item.mpJSON.id} <br/> Estado: {item.mpJSON.status} {item.mpJSON.status_detail} <br/> </span>
-                                <span> Referencia externa: {item.mpJSON.external_reference} </span>
-                                
-                            </Card.Text>
-                        </Card.Body>
-                    </Card>
-                ))}
+                                )
+                            }
+                            
+                            <br/>
+                            
+                            <span style={{fontWeight:'600'}}> Total por venta: ${item.mpJSON.transaction_amount} - Neto a recibir: ${item.mpJSON.transaction_details.net_received_amount} </span> <br/> </span>
+
+                            <span> Usuario: {item.user.email} <br/> </span>
+
+                            <span> Método de pago: {item.mpJSON.payment_method_id} - {item.mpJSON.payment_type_id} <br/> </span>
+
+                            <span> Identificador de pago: {item.mpJSON.id} <br/> Estado: {item.mpJSON.status} {item.mpJSON.status_detail} <br/> </span>
+
+                            <span> Referencia externa: {item.mpJSON.external_reference} </span>
+                            
+                        </Card.Text>
+
+                    </Card.Body>
+
+                </Card>
+
+            ))}
             
         </div>
     )
 }
 
 
-export default HistoryPage
+export default SalesPage

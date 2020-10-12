@@ -1,35 +1,34 @@
-import React, { useState } from "react"
-import { withRouter } from "react-router-dom"
-import { loginUser } from "../../../_actions/user_actions"
+import React, { useState } from 'react'
+import { withRouter } from 'react-router-dom'
+import { loginUser } from '../../../_actions/user_actions'
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { Form, Input, Button, Checkbox, Typography, Col } from 'antd'
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from 'react-redux'
 import { UserOutlined, LockFilled, GooglePlusOutlined } from '@ant-design/icons'
 import FacebookLogin from 'react-facebook-login'
 import { GoogleLogin } from 'react-google-login'
-import { USER_SERVER } from "../../../hoc/Config"
+import { USER_SERVER } from '../../../hoc/Config'
 
 
 const { Title } = Typography
 
 function LoginPage(props) {
-  const dispatch = useDispatch();
-  const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false
 
-  const mode = useSelector(state => state.mode)
+  //const ColorPrimary = props.ColorPrimary
+  const ColorSecundary = props.ColorSecundary
+  const ColorFont = props.ColorFont
+
+  const dispatch = useDispatch();
+  const rememberMeChecked = localStorage.getItem('rememberMe') ? true : false
+
   const [formErrorMessage, setFormErrorMessage] = useState('')
   const [rememberMe, setRememberMe] = useState(rememberMeChecked)
-  const [DarkMode, setDarkMode] = useState(mode.darkMode)
-  const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
-  const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
-  const [ColorFont, setColorFont] = useState(mode.ColorFont)
-
 
   const handleRememberMe = () => {setRememberMe(!rememberMe)}
 
   const initialEmail = localStorage
-    .getItem("rememberMe") ? localStorage.getItem("rememberMe") : ''
+    .getItem('rememberMe') ? localStorage.getItem('rememberMe') : ''
 
   const responseFacebook = (response) => {
     fetch(`${USER_SERVER}/login-with-facebook`, {
@@ -38,9 +37,9 @@ function LoginPage(props) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(response)
-    }).then( res => {
-      return res.json();
-    }).then( json => {
+    }).then( res => res.json())
+      .then( json => {
+        console.log(json);
       if (json.isEmail && json.verif) {
         document.cookie = `token = ${json.token}`
         if (json.newUser)
@@ -91,14 +90,6 @@ function LoginPage(props) {
     })
   }
 
-  var estilo = {}
-  var borde = {border:`1px solid ${ColorSecundary}`, borderRadius:'10px', padding:'40px', paddingBottom:'20px'}
-  try {
-    if (window.screen.width<767) {
-      estilo = {minWidth: '175px'}
-      borde = {border: '0px'}
-    }
-  } catch(e) {}
 
 
   return (
@@ -157,8 +148,16 @@ function LoginPage(props) {
           handleChange,
           handleBlur,
           handleSubmit
-        } = props;      
+        } = props
 
+        var estilo = {}
+        var borde = {border:`1px solid ${ColorSecundary}`, borderRadius:'10px', padding:'40px', paddingBottom:'20px'}
+        try {
+          if (window.screen.width<767) {
+            estilo = {minWidth: '175px'}
+            borde = {border: '0px'}
+          }
+        } catch(e) {}
 
         return (
 
