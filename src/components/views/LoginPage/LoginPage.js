@@ -59,9 +59,7 @@ function LoginPage(props) {
   const responseGoogle = (response) => {
     fetch(`${USER_SERVER}/google`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(response)
     }).then( res => {
       return res.json()
@@ -263,9 +261,16 @@ function LoginPage(props) {
           buttonText="INGRESAR CON GOOGLE"
           autoLoad={false}
           onSuccess={() => responseGoogle()}
-          //onFailure={err => console.log('fail', err)}
-          cookiePolicy={'single_host_origin'}
+          onFailure={err => console.log('fail', err)}
+          cookiePolicy={'none'}
         />
+        <GoogleLogin
+          clientId="517220495690-7pv1amnufvmpont2bi6ovfqn9g2m1fbj.apps.googleusercontent.com"
+          buttonText="INGRESAR CON GOOGLE"
+          onSuccess={() => responseGoogle()}
+          onFailure={err => console.log('fail', err)}
+          //cookiePolicy={'single_host_origin'}
+        />,
       </Col>
 
       <br/><br/><br/>
