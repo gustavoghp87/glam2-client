@@ -5,6 +5,7 @@ import UserCardBlock from './Sections/UserCardBlock'
 import { Result, Empty } from 'antd'
 import { IMAGES_SERVER, USER_SERVER } from '../../../hoc/Config'
 import { Link } from 'react-router-dom'
+import Axios from 'axios'
 
 
 function CartPage(props) {
@@ -134,15 +135,15 @@ function CartPage(props) {
             }
         })
 
-        var bodyJson = { items }
+        var bodyJson = { items, token:document.cookie }
 
-        fetch(`${USER_SERVER}/procesar-pago`, {
+        Axios({
+            url: `${USER_SERVER}/procesar-pago`,
             method: 'POST',
             //credentials: 'include',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(bodyJson)
+            data: bodyJson
         })
-        .then(response => response.json())
+        .then(response => response.data)
         .then(init_point => {window.open(init_point.url, '_blank')})
     }
   
