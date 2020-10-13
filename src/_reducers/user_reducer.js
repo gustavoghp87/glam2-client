@@ -3,7 +3,7 @@ import * as types from '../_actions/types'
 
 export const mode = (state = {
     darkMode: true,
-    ColorPrimary:'#000000',
+    ColorPrimary:'#202124',
     ColorSecundary:'#18191a',
     ColorFont:'#ffffff'
 }, action) => {
@@ -12,7 +12,7 @@ export const mode = (state = {
         case types.DARK_MODE:
             return {
                 darkMode: action.payload,
-                ColorPrimary: action.payload ? "#000000" : "#ffffff",
+                ColorPrimary: action.payload ? "#202124" : "#ffffff",
                 ColorSecundary: action.payload ? "#18191a" : "lightgray",
                 ColorFont: action.payload ? "#ffffff" : '#000000'
             }

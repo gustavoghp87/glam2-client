@@ -260,7 +260,7 @@ function LoginPage(props) {
           )}
           buttonText="INGRESAR CON GOOGLE"
           autoLoad={false}
-          onSuccess={() => responseGoogle()}
+          onSuccess={(response) => responseGoogle(response)}
           onFailure={err => console.log('fail', err)}
           cookiePolicy={'none'}
         />
