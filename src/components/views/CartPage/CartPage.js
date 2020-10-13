@@ -135,9 +135,7 @@ function CartPage(props) {
             }
         })
 
-        items.push({token:document.cookie})
-
-        Axios.post(`${USER_SERVER}/procesar-pago`, {token:document.cookie})
+        Axios.post(`${USER_SERVER}/procesar-pago`, {token:document.cookie, items})
         .then(response => response.data)
         .then(init_point => {window.open(init_point.url, '_blank')})
     }
