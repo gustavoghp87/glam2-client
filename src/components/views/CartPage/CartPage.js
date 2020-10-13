@@ -137,12 +137,7 @@ function CartPage(props) {
 
         var bodyJson = { items, token:document.cookie }
 
-        Axios({
-            url: `${USER_SERVER}/procesar-pago`,
-            method: 'POST',
-            //credentials: 'include',
-            data: bodyJson
-        })
+        Axios.post(`${USER_SERVER}/procesar-pago`, {bodyJson})
         .then(response => response.data)
         .then(init_point => {window.open(init_point.url, '_blank')})
     }
