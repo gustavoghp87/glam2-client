@@ -251,7 +251,7 @@ function LoginPage(props) {
         <br/> <br/>
 
         <GoogleLogin
-          clientId="517220495690-7pv1amnufvmpont2bi6ovfqn9g2m1fbj.apps.googleusercontent.com"
+          clientId="517220495690-2qrrpij62e29b4b0kci8kecr5gf24enn.apps.googleusercontent.com"
           render={renderProps => (
             <button onClick={renderProps.onClick} disabled={renderProps.disabled} style={{backgroundColor:'red', height:'62px', minWidth:'249px'}}>
               <GooglePlusOutlined  style={{fontSize:25, paddingTop:'0'}} />
@@ -264,13 +264,7 @@ function LoginPage(props) {
           onFailure={err => console.log('fail', err)}
           cookiePolicy={'none'}
         />
-        <GoogleLogin
-          clientId="517220495690-7pv1amnufvmpont2bi6ovfqn9g2m1fbj.apps.googleusercontent.com"
-          buttonText="INGRESAR CON GOOGLE"
-          onSuccess={() => responseGoogle()}
-          onFailure={err => console.log('fail', err)}
-          //cookiePolicy={'single_host_origin'}
-        />,
+
       </Col>
 
       <br/><br/><br/>
