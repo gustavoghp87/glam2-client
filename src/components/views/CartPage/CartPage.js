@@ -138,7 +138,7 @@ function CartPage(props) {
 
         fetch(`${USER_SERVER}/procesar-pago`, {
             method: 'POST',
-            credentials: 'include',
+            //credentials: 'include',
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(bodyJson)
         })

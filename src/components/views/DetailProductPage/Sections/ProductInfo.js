@@ -99,7 +99,7 @@ function ProductInfo(props) {
             
             {user && user.userData &&
             <>
-                <div style={{justifyContent:'center'}}>
+                <div style={{textAlign:'center'}}>
                     <Button size="large" shape="round" type="danger" onClick={
                         () => { props.addToCart(Product._id) }}> Agregar al Carrito
                     </Button>
@@ -107,7 +107,7 @@ function ProductInfo(props) {
 
                 <div style={{marginBottom:'20px'}}></div>
 
-                <h3 style={{textAlign:'center'}}> Cantidad en el carrito: {cantidad} </h3>
+                <h3 style={{textAlign:'center', color:props.ColorFont}}> Cantidad en el carrito: {cantidad} </h3>
                 <div style={{marginBottom:'20px'}}></div>
 
 
