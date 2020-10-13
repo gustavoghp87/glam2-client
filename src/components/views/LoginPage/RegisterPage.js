@@ -1,9 +1,9 @@
-import React, { useState } from "react"
+import React from "react"
 import moment from "moment"
 import { Formik } from 'formik'
 import * as Yup from 'yup'
 import { registerUser } from "../../../_actions/user_actions"
-import { useSelector, useDispatch } from "react-redux"
+import { useDispatch } from "react-redux"
 import { Form, Input, Button } from 'antd'
 
 
@@ -32,12 +32,6 @@ const tailFormItemLayout = {
 }
 
 function RegisterPage(props) {
-
-  const mode = useSelector(state => state.mode)
-  const [DarkMode, setDarkMode] = useState(mode.darkMode)
-  const [ColorPrimary, setColorPrimary] = useState(mode.ColorPrimary)
-  const [ColorSecundary, setColorSecundary] = useState(mode.ColorSecundary)
-  const [ColorFont, setColorFont] = useState(mode.ColorFont)
 
   const dispatch = useDispatch()
 
@@ -112,9 +106,9 @@ function RegisterPage(props) {
         
         const estilo2 = {display:'inline-block', margin:'auto', textAlign:'center'}
         var estiloApp = {width:'600px', paddingTop:'60px', margin:'auto'}
-        var borde = {border:`1px solid ${ColorSecundary}`, borderRadius:'10px', paddingTop:'40px', paddingBottom:'20px'}
+        var borde = {border:`1px solid ${props.ColorSecundary}`, borderRadius:'10px', paddingTop:'40px', paddingBottom:'20px'}
         try {
-          if (window.screen.width<767) {
+          if (props.mobile) {
             estiloApp = {width:'300px', paddingTop:'5%', margin:'auto'}
             borde = {border:'0px'}
           }
@@ -127,7 +121,7 @@ function RegisterPage(props) {
             <div style={estilo2}>
               <div style={borde}>
 
-                <h1 style={{color:ColorFont}}> Registrarse </h1>
+                <h1 style={{color:props.ColorFont}}> Registrarse </h1>
                 <div style={{marginBottom:'28px'}}></div>
 
                 <Form {...formItemLayout} onSubmit={handleSubmit}>
@@ -228,9 +222,9 @@ function RegisterPage(props) {
 
               <br/> <br/>
               
-              <h6 style={{color:ColorFont}}>Si creas una cuenta pero después ingresas por Facebook o Google, los métodos de ingreso se unificarán (excepto que uses distintos emails).</h6>
+              <h6 style={{color:props.ColorFont}}>Si creas una cuenta pero después ingresas por Facebook o Google, los métodos de ingreso se unificarán (excepto que uses distintos emails).</h6>
               <br/>
-              <h6 style={{color:ColorFont}}>Si eliges una contraseña demasiado sencilla, tu navegador puede darte un mensaje de advertencia de "tu contraseña quedó expuesta"; se recomienda al menos 10 caracteres combinando letras y números.</h6>
+              <h6 style={{color:props.ColorFont}}>Si eliges una contraseña demasiado sencilla, tu navegador puede darte un mensaje de advertencia de "tu contraseña quedó expuesta"; se recomienda al menos 10 caracteres combinando letras y números.</h6>
               <br/>
             </div>
             
