@@ -133,12 +133,11 @@ function CartPage(props) {
                     unit_price
                 })
             }
-            items.push({token:document.cookie})
         })
 
-        var bodyJson = { items }
+        items.push({token:document.cookie})
 
-        Axios.post(`${USER_SERVER}/procesar-pago`, {bodyJson})
+        Axios.post(`${USER_SERVER}/procesar-pago`, items)
         .then(response => response.data)
         .then(init_point => {window.open(init_point.url, '_blank')})
     }
