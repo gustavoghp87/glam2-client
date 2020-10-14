@@ -48,7 +48,9 @@ function SalesPage(props) {
             </div>
 
 
-            {data.pagos.map(item => (
+            {data && data.pagos &&
+            
+            data.pagos.map(item => (
                 
                 <Card key={item.mpJSON.id} style={{
                     marginTop: '25px',

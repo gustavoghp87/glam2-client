@@ -76,7 +76,7 @@ function UploadProductPage(props) {
 
     return (
 
-        <div style={{maxWidth:'700px', margin:'2rem auto'}}>
+        <div style={{maxWidth:'700px', margin:'0 auto'}}>
             <div style={{textAlign:'center', marginBottom:'2rem'}}>
                 <Title level={2}> Subir Producto </Title>
             </div>
@@ -89,21 +89,21 @@ function UploadProductPage(props) {
 
                 <br />
                 <br />
-                <label>Title</label>
+                <label style={{color:props.ColorFont}}>Title</label>
                 <Input
                     onChange={onTitleChange}
                     value={TitleValue}
                 />
                 <br />
                 <br />
-                <label>Description</label>
+                <label style={{color:props.ColorFont}}>Description</label>
                 <TextArea
                     onChange={onDescriptionChange}
                     value={DescriptionValue}
                 />
                 <br />
                 <br />
-                <label>Precio ($)</label>
+                <label style={{color:props.ColorFont}}>Precio ($)</label>
                 <Input
                     onChange={onPriceChange}
                     value={PriceValue}

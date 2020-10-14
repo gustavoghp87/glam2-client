@@ -67,7 +67,7 @@ function ProductsPage(props) {
             return (
                 <Link to={`/product/${product._id}`}>
                     <Card hoverable={true} cover={ <ImageSlider images={product.images} /> } >
-                        <Meta title={product.title} description={`$${product.price}`} />
+                        <Meta title={product.title} description={`$${product.price}`} style={{textAlign:'center'}} />
                     </Card>
                 </Link>
             )

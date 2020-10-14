@@ -152,7 +152,7 @@ function CartPage(props) {
                 <h1 style={{marginTop:'20px', marginBottom:'0', color:props.ColorFont}}> Mi Carrito </h1>
                 
                 <div style={{marginBottom:'20px',
-                    color: props.ColorSecundary,
+                    color: 'lightgray',
                     fontSize: props.mobile ? '1.5rem' : '1.7rem',
                     fontWeight:'600'
                 }}>({correo})</div>

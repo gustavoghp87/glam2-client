@@ -52,14 +52,13 @@ function DetailProductPage(props) {
         types++
         if (types===undefined) {types=Product.types}
         
-        const paquete = {title, description, price, types}
+        const paquete = {token:document.cookie, title, description, price, types}
 
         const config = {
             method: 'POST',
             url: `${PRODUCT_SERVER}/editProduct?_id=${productId}`,
             headers: {'Content-Type': 'application/json'},
-            data: paquete,
-            token: document.cookie
+            data: paquete
         }
 
         Axios(config).then(res => {

@@ -61,7 +61,9 @@ function FileUpload(props) {
                 )}
             </Dropzone>
 
-            <div style={{display:'flex', width:'350px', height:'240px', overflowX:'auto'}}>
+            <div style={{
+                display:'flex', width:'350px', height:'240px', overflowX:'auto', border: `1px solid lightgray`
+            }}>
 
                 {Images.map((image, index) => (
                     <div onClick={() => onDelete(image)}>
