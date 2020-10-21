@@ -7,7 +7,7 @@ function ServicesPage(props) {
     const cards = {
         width: '280px',
         height: '455px',
-        marginRight: '20px',
+        margin: props.mobile ? 'auto' : '0 20px',
         marginBottom: '40px'
     }
 
@@ -21,13 +21,13 @@ function ServicesPage(props) {
 
     return (
         <div style={{
-            width:'75%', 
-            margin:'auto', 
-            textAlign:'center', 
-            padding: props.mobile ? '5px 0' : '40px 0 80px 0'
+            width: '75%', 
+            margin: 'auto', 
+            textAlign: 'center', 
+            padding: props.mobile ? '25px 0' : '40px 0 80px 0'
         }}>
 
-            <div style={{textAlign:'center', paddingBottom: props.mobile ? '5px' : '50px'}}>
+            <div style={{textAlign:'center', paddingBottom: props.mobile ? '25px' : '50px'}}>
                 <h2 style={{color:props.ColorFont}}> NUESTROS SERVICIOS </h2>
             </div>
 

@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import { ShoppingCartOutlined, UploadOutlined } from '@ant-design/icons'
 import { logoutUser, changeMode } from '../../../_actions/user_actions'
 import { VscColorMode } from 'react-icons/vsc'
-import { mobile } from '../../App'
 
 
 function NavBar(props) {
@@ -27,7 +26,10 @@ function NavBar(props) {
   const renderEmailFloat = () => {
     try {
       return (
-        <div style={{overflow:'hidden', textAlign:'center', padding:'0', margin:'0', position:'fixed', left:'10px', bottom:'1.5%', zIndex:'5'}}>
+        <div style={{
+          overflow:'hidden', textAlign:'center', padding:'0', margin:'0',
+          position:'fixed', left:'10px', bottom:'1.5%', zIndex:'5'
+        }}>
           <h6 style={{textAlign:'center', color:props.ColorFont}}> {user.userData.email} </h6>
         </div>
       )
@@ -214,14 +216,18 @@ function NavBar(props) {
           </div>
           
           <div className="menu__container" style={{paddingTop:'5px'}}>
-            
+
             <div className="menu_left">
               <Menu mode={"horizontal"} style={{backgroundColor:props.ColorPrimary}}>
                 <Menu.Item>
-                  <Link to="/servicios"> <span style={{fontWeight:'600', color:props.ColorFont}}>Servicios</span> </Link>
+                  <Link to="/servicios">
+                    <span style={{fontWeight:'600', color:props.ColorFont}}>Servicios</span>
+                  </Link>
                 </Menu.Item>
                 <Menu.Item>
-                  <Link to="/productos"> <span style={{fontWeight:'600', color:props.ColorFont}}>Productos</span> </Link>
+                  <Link to="/productos">
+                    <span style={{fontWeight:'600', color:props.ColorFont}}>Productos</span>
+                  </Link>
                 </Menu.Item>                
               </Menu>
             </div>
@@ -249,7 +255,8 @@ function NavBar(props) {
           
           <div className="menu__container" style={{paddingTop:'5px'}, estiloMenuContainer}>
             
-            <Button className="menu__mobile-button" type={props.darkMode ? "dark" : "light"} onClick={showDrawer}>
+            <Button className="menu__mobile-button" type={props.darkMode ? "dark" : "light"} 
+              onClick={showDrawer}>
               <MenuIcon />
             </Button>
 
@@ -262,6 +269,7 @@ function NavBar(props) {
                 closable={false}
                 onClose={onClose}
                 visible={visible}
+                onClick={onClose}
               >
 
                 <Menu mode={"inline"} style={{backgroundColor:props.ColorPrimary}}>
@@ -310,8 +318,7 @@ function NavBar(props) {
           left: '10px', 
           top: props.mobile ? '80px' : '80px', 
           zIndex: '2', 
-          color: props.ColorFont,
-
+          color: props.ColorFont
           }}
           onClick={() => {handleColor()}}
         >

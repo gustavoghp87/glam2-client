@@ -15,9 +15,7 @@ const { Title } = Typography
 
 function LoginPage(props) {
 
-  //const ColorPrimary = props.ColorPrimary
-  const ColorSecundary = props.ColorSecundary
-  const ColorFont = props.ColorFont
+  const { ColorFont, mobile } = props
 
   const dispatch = useDispatch();
   const rememberMeChecked = localStorage.getItem('rememberMe') ? true : false
@@ -33,9 +31,7 @@ function LoginPage(props) {
   const responseFacebook = (response) => {
     fetch(`${USER_SERVER}/login-with-facebook`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
+      headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(response)
     }).then( res => res.json())
       .then( json => {
@@ -89,10 +85,15 @@ function LoginPage(props) {
   }
 
 
-
   return (
     
-    <div style={{maxWidth:'600px', display:'block', margin:'30px auto 0 auto', padding:'0 5px 0 5px'}}>
+    <div style={{
+      maxWidth: mobile ? '400px' : '600px',
+      display:'block',
+      margin:'30px auto 0 auto',
+      padding:'0 5px 0 5px'
+    }}>
+
     <Formik
       initialValues={{
         email: initialEmail,
@@ -148,20 +149,23 @@ function LoginPage(props) {
           handleSubmit
         } = props
 
-        var estilo = {}
-        var borde = {border:`1px solid ${ColorSecundary}`, borderRadius:'10px', padding:'40px', paddingBottom:'20px'}
-        try {
-          if (window.screen.width<767) {
-            estilo = {minWidth: '175px'}
-            borde = {border: '0px'}
-          }
-        } catch(e) {}
 
         return (
 
-          <div className="app" style={{width:'100%', justifyContent:'center', paddingTop:'5%', display:'block', margin:'0 auto'}}>
+          <div className="app" style={{
+            width:'100%', 
+            justifyContent:'center', 
+            paddingTop:'5%', 
+            display:'block', 
+            margin:'0 auto'
+          }}>
 
-            <div style={borde}>
+            <div style={{
+              border: mobile ? 'none' : `1px solid gray`, 
+              borderRadius: '10px',
+              padding: mobile ? '5px' : '40px',
+              paddingBottom: '20px'
+            }}>
               
               <Title level={1} style={{textAlign:'center', color:ColorFont}}>
                 Iniciar Sesión
@@ -169,7 +173,7 @@ function LoginPage(props) {
               
               <div style={{marginBottom:'30px'}}></div>
               
-              <form onSubmit={handleSubmit} style={estilo} >
+              <form onSubmit={handleSubmit} style={{minWidth: mobile ? '175px' : 'none'}}>
 
                 <Form.Item required>
                   <Input

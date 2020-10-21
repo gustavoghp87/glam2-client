@@ -241,7 +241,10 @@ function ProductInfo(props) {
 
                                     <Input style={{maxWidth:'50px'}} type="number" as="number" aria-label="With textarea" defaultValue={index+1} />
                                     
-                                    <img style={{maxWidth:'100px', margin:'20px'}} src={`${IMAGES_SERVER}/${imagen}`} />
+                                    <img style={{maxWidth:'100px', margin:'20px'}}
+                                        src={`${IMAGES_SERVER}/${imagen}`}
+                                        alt="productinfo"
+                                    />
                                     
                                     <Checkbox onChange={checkboxer}>Eliminar</Checkbox>
                                     

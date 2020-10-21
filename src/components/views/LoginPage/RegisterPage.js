@@ -34,6 +34,8 @@ const tailFormItemLayout = {
 function RegisterPage(props) {
 
   const dispatch = useDispatch()
+  const { mobile, ColorFont } = props
+
 
   return (
     <Formik
@@ -83,17 +85,17 @@ function RegisterPage(props) {
         }, 500);
       }}
     >
+
       {props => {
         const {
           values,
           touched,
           errors,
-          dirty,
           isSubmitting,
           handleChange,
           handleBlur,
           handleSubmit
-        } = props;
+        } = props
 
 
         if (window.location.pathname==='/register') {
@@ -103,25 +105,25 @@ function RegisterPage(props) {
             }
           })
         }
-        
-        const estilo2 = {display:'inline-block', margin:'auto', textAlign:'center'}
-        var estiloApp = {width:'600px', paddingTop:'60px', margin:'auto'}
-        var borde = {border:`1px solid ${props.ColorSecundary}`, borderRadius:'10px', paddingTop:'40px', paddingBottom:'20px'}
-        try {
-          if (props.mobile) {
-            estiloApp = {width:'300px', paddingTop:'5%', margin:'auto'}
-            borde = {border:'0px'}
-          }
-        } catch(e) {}
-        
-        
-        return (
-          <div className="app" style={estiloApp}>
-            
-            <div style={estilo2}>
-              <div style={borde}>
 
-                <h1 style={{color:props.ColorFont}}> Registrarse </h1>
+
+        return (
+          <div style={{
+            width: mobile ? '300px' : '600px',
+            paddingTop: mobile ? '5%' : '40px',
+            margin: 'auto'
+          }}>
+            
+            <div style={{display:'inline-block', margin:'auto', textAlign:'center'}}>
+
+              <div style={{
+                border: mobile ? 'none' : `1px solid gray`,
+                borderRadius:'10px',
+                paddingTop: mobile ? '10px' : '40px',
+                paddingBottom:'20px'
+              }}>
+
+                <h1 style={{color:ColorFont}}> Registrarse </h1>
                 <div style={{marginBottom:'28px'}}></div>
 
                 <Form {...formItemLayout} onSubmit={handleSubmit}>
@@ -138,7 +140,9 @@ function RegisterPage(props) {
                       }
                     />
                     {errors.name && touched.name && (
-                      <div className="input-feedback"><div style={{marginBottom:'10px'}}></div>{errors.name}</div>
+                      <div className="input-feedback">
+                        <div style={{marginBottom:'10px'}}></div>{errors.name}
+                      </div>
                     )}
                   </Form.Item>
 
@@ -155,7 +159,9 @@ function RegisterPage(props) {
                       }
                     />
                     {errors.lastName && touched.lastName && (
-                      <div className="input-feedback"><div style={{marginBottom:'10px'}}></div>{errors.lastName}</div>
+                      <div className="input-feedback">
+                        <div style={{marginBottom:'10px'}}></div>{errors.lastName}
+                      </div>
                     )}
                   </Form.Item>
 
@@ -172,7 +178,9 @@ function RegisterPage(props) {
                       }
                     />
                     {errors.email && touched.email && (
-                      <div className="input-feedback"><div style={{marginBottom:'10px'}}></div>{errors.email}</div>
+                      <div className="input-feedback">
+                        <div style={{marginBottom:'10px'}}></div>{errors.email}
+                      </div>
                     )}
                   </Form.Item>
 
@@ -189,7 +197,9 @@ function RegisterPage(props) {
                       }
                     />
                     {errors.password && touched.password && (
-                      <div className="input-feedback"><div style={{marginBottom:'10px'}}></div>{errors.password}</div>
+                      <div className="input-feedback">
+                        <div style={{marginBottom:'10px'}}>
+                      </div>{errors.password}</div>
                     )}
                   </Form.Item>
 
@@ -206,7 +216,9 @@ function RegisterPage(props) {
                       }
                     />
                     {errors.confirmPassword && touched.confirmPassword && (
-                      <div className="input-feedback"><div style={{marginBottom:'10px'}}></div>{errors.confirmPassword}</div>
+                      <div className="input-feedback">
+                        <div style={{marginBottom:'10px'}}></div>{errors.confirmPassword}
+                      </div>
                     )}
                   </Form.Item>
 
@@ -222,9 +234,9 @@ function RegisterPage(props) {
 
               <br/> <br/>
               
-              <h6 style={{color:props.ColorFont}}>Si creas una cuenta pero después ingresas por Facebook o Google, los métodos de ingreso se unificarán (excepto que uses distintos emails).</h6>
+              <h6 style={{color:ColorFont}}>Si creas una cuenta pero después ingresas por Facebook o Google, los métodos de ingreso se unificarán (excepto que uses distintos emails).</h6>
               <br/>
-              <h6 style={{color:props.ColorFont}}>Si eliges una contraseña demasiado sencilla, tu navegador puede darte un mensaje de advertencia de "tu contraseña quedó expuesta"; se recomienda al menos 10 caracteres combinando letras y números.</h6>
+              <h6 style={{color:ColorFont}}>Si eliges una contraseña demasiado sencilla, tu navegador puede darte un mensaje de advertencia de "tu contraseña quedó expuesta"; se recomienda al menos 10 caracteres combinando letras y números.</h6>
               <br/>
             </div>
             
