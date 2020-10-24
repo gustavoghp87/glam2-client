@@ -82,7 +82,7 @@ function ProductInfo(props) {
 
     return (
 
-        <div style={{marginRight:'8%', color:props.props.ColorFont}}>
+        <div style={{margin:'0 8%', color:props.props.ColorFont}}>
             {
                 <Descriptions title="Información del Producto" style={{border:'1px solid lightgray', textAlign:'center', paddingTop:'15px', backgroundColor:'#ffffff'}}>
                     <Descriptions.Item label="Precio" style={{fontWeight:'600', border:'1px solid lightgray', padding:'8px 0 10px 15px'}} color={'red'}> ${Product.price} </Descriptions.Item>

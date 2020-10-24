@@ -61,7 +61,10 @@ export function auth() {
 
 export function logoutUser() {
     const request = axios.post(`${USER_SERVER}/logout`, {token:document.cookie})
-        .then(response => response.data)
+        .then(response => {
+            return response.data
+        })
+    document.cookie = `token = ""`
     return {
         type: LOGOUT_USER,
         payload: request

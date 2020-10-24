@@ -12,7 +12,6 @@ import { VscColorMode } from 'react-icons/vsc'
 function NavBar(props) {
 
   const user = useSelector(state => state.user)
-  const mode = useSelector(state => state.mode)
   const dispatch = useDispatch()
 
   const estiloBarra = {backgroundColor: props.ColorPrimary}

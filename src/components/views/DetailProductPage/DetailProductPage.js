@@ -83,26 +83,33 @@ function DetailProductPage(props) {
         <div className="postPage" style={{width:'100%', paddingBottom:'200px'}}>
 
             <Button size="large" shape="round" type="danger"
-                style={{padding:'0 15px', position:'absolute', right:'0', marginRight:'20px'}}>
+                style={{
+                    padding: '0 15px', position: props.mobile ? '' : 'absolute',
+                    right: props.mobile ? '' : '0',
+                    display: props.mobile ? 'block' : '',
+                    margin: props.mobile ? '0 20px 0 auto' : '0 20px 0 0'
+                }}
+            >
 
                 <Link to={'/productos'} style={{textDecoration:'none'}}> Volver a Productos </Link>
 
             </Button>
             
 
-            <h1 style={{textAlign:'center', margin:'40px auto 100px auto', color:props.ColorFont}}>
+            <h1 style={{textAlign:'center', color:props.ColorFont,
+                margin: props.mobile ? '40px auto 50px auto' : '40px auto 60px auto'}}>
                 {Product.title}
             </h1>
 
 
             <Row>
                 
-                <Col lg={12} xs={24} style={MostrarImgs}>
+                <Col lg={12} xs={24} style={MostrarImgs, {padding: props.mobile ? '0 0 10px 0px' : '10px'}}>
                     <ProductImage detail={Product} />
                 </Col>
 
 
-                <Col lg={12} xs={24}>
+                <Col lg={12} xs={24} style={{padding: props.mobile ? '' : '10px'}}>
 
                     <ProductInfo
                         addToCart={addToCartHandler}
